@@ -2,6 +2,21 @@
 
 The files in this repository branch are my in-class examples. Additionally, you can find online notes at the course's [Moodle site](https://moodle.nait.ca) and on the unofficial [website notes](https://dmit-1508.github.io). Also be sure to checkout out the [**Learning Outcomes**](https://dmit-1508.github.io/about/LOGs.html) that I use in class.
 
+## Outline
+
+The general topics in this workbook include
+
+- [**Normalization**](Design/)
+- SQL statements for [**DDL**](DDL/) (Data Definition Language) - `CREATE TABLE` etc.
+- SQL statements for [**DML**](DML/) (Data Manipulation Language) - `INSERT INTO` etc.
+- SQL statements for [**Queries**](SQL/) - `SELECT` etc.
+- SQL statements for [**Stored Procedures**](SPROCS/) (sprocs) - `CREATE PROCEDURE` etc.
+- SQL statements for [**Triggers**](Triggers/) - `CREATE TRIGGER` etc.
+
+----
+
+## Software and Resources
+
 Recommended tools for this course include:
 
 - SQL Server 2017, Developer Edition (available through [Microsoft Imagine](https://e5.onthehub.com/WebStore/OfferingDetails.aspx?o=32dd97ce-e6ad-e711-80f7-000d3af41938&ws=3511aead-a58b-e011-969d-0030487d8897&vsro=8))
