@@ -7,11 +7,12 @@ The files in this repository branch are my in-class examples. Additionally, you 
 The general topics in this workbook include
 
 - [**Normalization**](Design/)
-- SQL statements for [**DDL**](DDL/) (Data Definition Language) - `CREATE TABLE` etc.
-- SQL statements for [**DML**](DML/) (Data Manipulation Language) - `INSERT INTO` etc.
-- SQL statements for [**Queries**](SQL/) - `SELECT` etc.
-- SQL statements for [**Stored Procedures**](SPROCS/) (sprocs) - `CREATE PROCEDURE` etc.
-- SQL statements for [**Triggers**](Triggers/) - `CREATE TRIGGER` etc.
+- SQL statements for 
+  - [**DDL**](DDL/) (Data Definition Language) - `CREATE TABLE` etc.
+  - [**DML**](DML/) (Data Manipulation Language) - `INSERT INTO` etc.
+  - [**Queries**](SQL/) - `SELECT` etc.
+  - [**Stored Procedures**](SPROCS/) (sprocs) - `CREATE PROCEDURE` etc.
+  - [**Triggers**](Triggers/) - `CREATE TRIGGER` etc.
 
 ----
 
