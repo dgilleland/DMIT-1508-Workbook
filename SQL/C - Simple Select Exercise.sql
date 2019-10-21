@@ -31,6 +31,7 @@ SELECT  PaymentTypeID,                              -- Non-aggregate column (btw
 FROM    Payment
 GROUP BY PaymentTypeID
 ORDER BY COUNT(PaymentTypeID) ASC
+-- HELP! Is the answer above correct?? How can we fix it?
 /* A note on ORDER BY
    - The ORDER BY clause will, by default, do the sorting in ascending order.
      You can also sort by more than one column (more on that later).
