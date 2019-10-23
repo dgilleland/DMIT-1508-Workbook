@@ -128,7 +128,7 @@ WHERE   Mark IS NOT NULL
     
     DATEADD (xx, n, date1)      returns a new date adding the number of xx to date1; n may be negative
     
-    DATEDIFF (xx, date1, date2) returns the number of xx from date1 (older) to date2 (newer) – can return negative numbers
+    DATEDIFF (xx, date1, date2) returns the number of xx from date1 (older) to date2 (newer) - can return negative numbers
     
     DATENAME (xx, date1)        returns a string representation of the xx of date1
     
