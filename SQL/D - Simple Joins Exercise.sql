@@ -82,6 +82,9 @@ FROM    Student S
 WHERE   S.StudentID = 199912010
   AND   R.Semester = '2001S'
 
---9. What are the Student Names, courseID's that have Marks > 80?
+--9. What are the Student Names, courseID's with individual Marks at 80% or higher? Sort the results by course.
+-- TODO: Student Answer Here...
+
+--10. Modify the script from the previous question to show the Course Name along with the ID.
 -- TODO: Student Answer Here...
 
