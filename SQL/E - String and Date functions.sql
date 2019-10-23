@@ -20,7 +20,7 @@ GO
 	SELECT SUBSTRING('To be or not to be', 10, 3)
 	-- REVERSE
     SELECT REVERSE('Dan')
-    -- (Club whose id is an anagram)
+    -- (Club whose id is a palindrome)
     -- Select the insert statement below to add a row into the Club table
     -- INSERT INTO Club(ClubId, ClubName) VALUES ('ABCBA', 'Active Bat Catching Brotherhood Assoc.')
 	SELECT	ClubId, ClubName
