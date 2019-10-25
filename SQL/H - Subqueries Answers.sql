@@ -11,6 +11,8 @@ FROM    Activity
 WHERE   ClubID = (SELECT ClubID FROM Club
                   WHERE ClubName = 'Association of Computing Machinery')
 
+-- 2.b. Select the names of all the students in the 'Association of Computing Machinery' club. Use a subquery for your answer. When you make your answer, ensure the outmost query only uses the Student table in its FROM clause.
+
 --4. Select All the staff full names that taught DMIT172.
 -- TODO: Student Answer Here
 SELECT FirstName + ' ' + LastName AS 'Staff'
