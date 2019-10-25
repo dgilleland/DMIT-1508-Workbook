@@ -36,7 +36,7 @@ FROM    Registration AS R
 GROUP BY    S.FirstName  + ' ' + S.LastName  -- Since my non-aggregate is an expression,
                                              -- I am using the same expression in my GROUP BY
 
---5. Select the same data as question 4 but only show the student names and averages that are > 80. (HINT: Remember the HAVING clause?)
+--5. Select the same data as question 4 but only show the student names and averages that are 80% or higher. (HINT: Remember the HAVING clause?)
  -- TODO: Student Answer Here... 
 
 
