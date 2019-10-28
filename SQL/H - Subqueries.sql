@@ -108,7 +108,18 @@ FROM   Registration
         ON Registration.StudentID = Student.StudentID
 WHERE City = 'Edm'
 
---9. What is the avg mark for each of the students from Edm? Display their StudentID and avg(mark)
+-- 9. What is the avg mark for each of the students from Edm? Display their StudentID and avg(mark)
 -- TODO: Student Answer Here...
 
---10. Which student(s) have the highest average mark? Hint - This can only be done by a subquery
+-- 10. Which student(s) have the highest average mark? Hint - This can only be done by a subquery.
+-- TODO: Student Answer Here...
+
+-- 11. Which course(s) allow the largest classes? Show the course id, name, and max class size.
+-- TODO: Student Answer Here...
+
+-- 12. Which course(s) are the most affordable? Show the course name and cost.
+-- TODO: Student Answer Here...
+
+-- 13. Which staff have taught the largest classes? (Be sure to group registrations by course and semester.)
+-- TODO: Student Answer Here...
+
