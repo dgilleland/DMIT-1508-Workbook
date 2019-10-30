@@ -47,6 +47,7 @@ SELECT  PositionDescription
 FROM    Position
 WHERE   PositionID NOT IN (SELECT PositionID FROM Staff)
 --      Add Sheldon Murray as the new Assistant Dean.
+-- TODO: Student Answer Here....
 
 -- 3. There are three additional clubs being started at the school:
 --      - START - Small Tech And Research Teams
@@ -64,5 +65,6 @@ VALUES ('START', 'Small Tech And Research Teams'),
 -- TODO: Student Answer Here....
 
 
--- 5. Enroll each of the students you've added into the DMIT104 course.
+-- 5. Enroll each of the students you've added into the DMIT777 course.
 --    Use 'Dan Gilleland' as the instructor. At this point, their marks should be NULL.
+-- TODO: Student Answer Here....
