@@ -38,11 +38,11 @@ UPDATE Activity SET ClubId = 'NASA1' WHERE StudentID = 200494476
 DELETE FROM Activity WHERE StudentID = 200494476
 
 -- 1. In order to be fair to all students, a student can only belong to a maximum of 3 clubs. Create a trigger to enforce this rule.
-IF EXISTS (SELECT * FROM sys.triggers WHERE object_id = OBJECT_ID(N'[dbo].[Actvitity_InsertUpdate]'))
-    DROP TRIGGER Actvitity_InsertUpdate
+IF EXISTS (SELECT * FROM sys.triggers WHERE object_id = OBJECT_ID(N'[dbo].[Activity_InsertUpdate]'))
+    DROP TRIGGER Activity_InsertUpdate
 GO
 
-CREATE TRIGGER Actvitity_InsertUpdate
+CREATE TRIGGER Activity_InsertUpdate
 ON Activity
 FOR Insert, Update -- Choose only the DML statement(s) that apply
 AS
