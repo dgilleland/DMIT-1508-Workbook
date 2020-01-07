@@ -22,6 +22,7 @@ Recommended tools for this course include:
 
 - SQL Server 2017, Developer Edition (available through [Microsoft Imagine](https://e5.onthehub.com/WebStore/OfferingDetails.aspx?o=32dd97ce-e6ad-e711-80f7-000d3af41938&ws=3511aead-a58b-e011-969d-0030487d8897&vsro=8))
 - [Visual Studio Code](https://code.visualstudio.com)
+  - Begin your journey with VS Code with these [introductory videos](https://code.visualstudio.com/docs/introvideos/overview).
 - [GitHub Desktop](https://desktop.github.com)
 - Draw.io ([desktop](https://about.draw.io/integrations/#integrations_offline) and [online](https://draw.io) versions)
 
