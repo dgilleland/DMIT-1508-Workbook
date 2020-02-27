@@ -15,11 +15,16 @@ GO
     FROM   Staff
     ORDER BY 1 -- sorted by the first column
 
-	-- SUBSTRING
-	SELECT SUBSTRING('Hello World', 1, 2)
-	SELECT SUBSTRING('To be or not to be', 10, 3)
-	-- REVERSE
+    -- SUBSTRING
+    SELECT SUBSTRING('Hello World', 1, 2)
+    SELECT SUBSTRING('To be or not to be', 10, 3)
+
+    -- CHARINDEX
+    SELECT '[' + LEFT('Hello World', CHARINDEX(' ', 'Hello World') - 1) + ']'
+
+    -- REVERSE
     SELECT REVERSE('Dan')
+
     -- (Club whose id is a palindrome)
     -- Select the insert statement below to add a row into the Club table
     -- INSERT INTO Club(ClubId, ClubName) VALUES ('ABCBA', 'Active Bat Catching Brotherhood Assoc.')
@@ -118,6 +123,7 @@ WHERE   Mark IS NOT NULL
     LOWER ( character_expression )                                          SELECT LOWER('AWESOME!')
     UPPER ( character_expression )                                          SELECT UPPER('boring')
     REPLACE ( string_expression , string_pattern , string_replacement )     SELECT REPLACE('Daniel', 'iel', 'YELL')
+    CHARINDEX ( substring , string [, start_location] )                     SELECT CHARINDEX(' ', 'Hello World')
 
 
 
