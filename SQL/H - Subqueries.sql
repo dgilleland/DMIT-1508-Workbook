@@ -111,7 +111,10 @@ WHERE City = 'Edm'
 -- 9. What is the avg mark for each of the students from Edm? Display their StudentID and avg(mark)
 -- TODO: Student Answer Here...
 
--- 10. Which student(s) have the highest average mark? Hint - This can only be done by a subquery.
+-- 10. Which student(s) have the highest average mark?
+-- Hint - This can only be done by a subquery.
+-- Extra Hint - This one is a bit tricky, because you need to make sure your subquery does not
+--              have any NULL rows...
 -- TODO: Student Answer Here...
 
 -- 11. Which course(s) allow the largest classes? Show the course id, name, and max class size.
