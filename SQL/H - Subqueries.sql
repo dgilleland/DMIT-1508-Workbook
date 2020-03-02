@@ -36,11 +36,12 @@ FROM Staff
     INNER JOIN Registration
         ON Staff.StaffID = Registration.StaffID 
 
--- 2.b. Select the names of all the students in the 'Association of Computing Machinery' club. Use a subquery for your answer; do not use any JOINs. When you make your answer, ensure the outmost query only uses the Student table in its FROM clause.
+-- 2.b. Let's revisit/modify Question 2: Select the names of all the students in the 'Association of Computing Machinery' club. Use a subquery for your answer; do not use any JOINs. When you make your answer, ensure the outmost query only uses the Student table in its FROM clause.
 
 --4. Select All the staff full names that taught DMIT172.
 -- TODO: Student Answer Here
 
+--4.b. Who has taught DMIT152
 
 --5. Select All the staff full names of staff that have never taught a course
 SELECT FirstName + ' ' + LastName AS 'Staff'
