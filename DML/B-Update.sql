@@ -46,8 +46,8 @@ WHERE  City = 'Edm'
 
 -- ======= Practice ========
 -- 5. For each student that does not have a mark in the Registration table,
---    create an update statement that gives each student a different mark.
--- TIP - Use the RAND() function for a random number. E.g.:
+--    create an update statement that gives each student a mark.
+-- TIP - Try using the RAND() function for a random number. E.g.:
 -- SELECT floor(rand()*101) AS 'Mark'
 -- TODO: Student Answer Here....
 
