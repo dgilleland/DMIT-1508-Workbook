@@ -55,6 +55,11 @@ WHERE  City = 'Edm'
 --    their courses.
 -- TODO: Student Answer Here....
 
+/* Updating Tables via Views: -----------------------------
+ * It is possible to use a VIEW as an "intermediary" for inserting/updating/deleting
+ * from tables. Depending on the view, however, there may be limitations on what
+ * operations you can perform.
+ */
 /* The following statements expect the presence of a view called StudentGrades.
 IF OBJECT_ID('StudentGrades', 'V') IS NOT NULL
     DROP VIEW StudentGrades
@@ -74,8 +79,11 @@ GO
 -- SELECT * FROM StudentGrades -- Use to examine the results in the view
 */
 --7.  Using the StudentGrades view, change the coursename for the capstone course to be 'basket weaving 101'.
--- TODO: Student Answer Here...
+UPDATE  StudentGrades
+SET     CourseName = 'basket weaving 101'
+WHERE   CourseName = 'Capstone Project'
 
+-- ======= Practice ========
 --8.  Using the StudentGrades view, update the  mark for studentID 199899200 in course dmit152 to be 90.
 -- TODO: Student Answer Here...
 
