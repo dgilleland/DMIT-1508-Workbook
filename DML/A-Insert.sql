@@ -16,6 +16,12 @@ GO -- Execute the code up to this point as a single batch
     VALUES ('A', 'Value', 'Per', 'Column'),
            ('Another', 'Row', 'Of', 'Values')
     
+    When inserting values, you can use subqueries for individual values
+    provided that the subquery returns a single value:
+    
+    INSERT INTO TableName(Comma, Separated, ListOf, ColumnNames)
+    VALUES ('A', (SELECT SingleValue FROM SomeTable), 'Per', 'Column')
+
     Another syntax for the INSERT statement is to use a SELECT clause in place
     of the VALUES clause. This is used for zero-to-many possible rows to insert.
 
