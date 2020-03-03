@@ -41,7 +41,7 @@ FROM Staff
 --4. Select All the staff full names that taught DMIT172.
 -- TODO: Student Answer Here
 
---4.b. Who has taught DMIT152
+--4.b. Who has taught DMIT152?
 
 --5. Select All the staff full names of staff that have never taught a course
 SELECT FirstName + ' ' + LastName AS 'Staff'
