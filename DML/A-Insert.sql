@@ -67,7 +67,7 @@ VALUES ('START', 'Small Tech And Research Teams'),
 
 -- ======= Practice ========
 -- 4. In your web browser, use https://randomuser.me/ to get information on three
---    people to add as new students. Write separate insert statement for each new student.
+--    people to add as new students. Write a separate insert statement for each new student.
 -- TODO: Student Answer Here....
 
 
