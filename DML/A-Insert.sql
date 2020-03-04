@@ -75,5 +75,5 @@ VALUES ('START', 'Small Tech And Research Teams'),
 
 -- 5. Enroll each of the students you've added into the DMIT777 course.
 --    Use 'Dan Gilleland' as the instructor. At this point, their marks should be NULL.
--- TIP - Given the wording of this question, be sure to use some kind of subquery in your answer.
+-- HINT - Given the wording of this question, be sure to use some kind of subquery in your answer.
 -- TODO: Student Answer Here....
