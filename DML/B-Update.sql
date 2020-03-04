@@ -48,12 +48,18 @@ WHERE  City = 'Edm'
 -- 5. For each student that does not have a mark in the Registration table,
 --    create an update statement that gives each student a mark.
 -- TIP - Try using the RAND() function for a random number. E.g.:
--- SELECT floor(rand()*101) AS 'Mark'
+--       SELECT floor(rand()*101) AS 'Mark'
+--       and then check the database to see if those students were assigned
+--       unique values or the same value.
 -- TODO: Student Answer Here....
 
 -- 6. Choose a student from the previous question and withdraw them from all
---    their courses.
+--    of their courses.
 -- TODO: Student Answer Here....
+
+-- 7. Bonus Time! Update the marks of all the students in the DMIT152 course by
+--    increasing their marks by 5%. Check the database before and after doing
+--    the update to verify if the changes were correct.
 
 /* Updating Tables via Views: -----------------------------
  * It is possible to use a VIEW as an "intermediary" for inserting/updating/deleting
@@ -78,15 +84,15 @@ AS
 GO
 -- SELECT * FROM StudentGrades -- Use to examine the results in the view
 */
---7.  Using the StudentGrades view, change the coursename for the capstone course to be 'basket weaving 101'.
+--8.  Using the StudentGrades view, change the coursename for the capstone course to be 'basket weaving 101'.
 UPDATE  StudentGrades
 SET     CourseName = 'basket weaving 101'
 WHERE   CourseName = 'Capstone Project'
 
 -- ======= Practice ========
---8.  Using the StudentGrades view, update the  mark for studentID 199899200 in course dmit152 to be 90.
+--9.  Using the StudentGrades view, update the  mark for studentID 199899200 in course dmit152 to be 90.
 -- TODO: Student Answer Here...
 
---9.  Using the StudentGrades view, see if you can delete the same record from the previous question.
+--10. Using the StudentGrades view, see if you can delete the same record from the previous question.
 --    If it doesn't work, then copy the error message here.
 -- TODO: Student Answer Here...
