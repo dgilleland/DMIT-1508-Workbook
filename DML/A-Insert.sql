@@ -70,6 +70,8 @@ VALUES ('START', 'Small Tech And Research Teams'),
 --    people to add as new students. Write a separate insert statement for each new student.
 -- TODO: Student Answer Here....
 -- sp_help Student
+-- TIP: When inserting into a datetime column, you can use a string and SQL Server
+--      will convert it for you. E.g.: 'Jan 5, 2020'
 
 -- 5. Enroll each of the students you've added into the DMIT777 course.
 --    Use 'Dan Gilleland' as the instructor. At this point, their marks should be NULL.
