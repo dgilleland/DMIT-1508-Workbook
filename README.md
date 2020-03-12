@@ -20,7 +20,8 @@ The general topics in this workbook include
 
 Recommended tools for this course include:
 
-- SQL Server 2017, Developer Edition (available through [Microsoft Imagine](https://e5.onthehub.com/WebStore/OfferingDetails.aspx?o=32dd97ce-e6ad-e711-80f7-000d3af41938&ws=3511aead-a58b-e011-969d-0030487d8897&vsro=8))
+- [SQL Server 2019](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) or higher, **Developer Edition**
+- [Sql Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15#download-ssms) (*SSMS*)
 - [Visual Studio Code](https://code.visualstudio.com)
   - Begin your journey with VS Code with these [introductory videos](https://code.visualstudio.com/docs/introvideos/overview).
 - [GitHub Desktop](https://desktop.github.com)
