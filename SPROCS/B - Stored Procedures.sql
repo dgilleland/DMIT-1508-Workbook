@@ -164,19 +164,21 @@ AS
 RETURN
 GO
 
-
-
 -- 5. Create a stored procedure that will remove a student from a club. Call it RemoveFromClub.
-
+-- TODO: Student Answer Here
 
 -- Query-based Stored Procedures
 -- 6. Create a stored procedure that will display all the staff and their position in the school.
 --    Show the full name of the staff member and the description of their position.
+-- TODO: Student Answer Here
 
 -- 7. Display all the final course marks for a given student. Include the name and number of the course
 --    along with the student's mark.
+-- TODO: Student Answer Here
 
 -- 8. Display the students that are enrolled in a given course on a given semester.
 --    Display the course name and the student's full name and mark.
+-- TODO: Student Answer Here
 
 -- 9. The school is running out of money! Find out who still owes money for the courses they are enrolled in.
+-- TODO: Student Answer Here

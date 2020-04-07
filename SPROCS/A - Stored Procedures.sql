@@ -20,6 +20,9 @@ RETURN
 GO
 */
 
+/****************
+ * Introduction */
+
 
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'GetName')
     DROP PROCEDURE GetName
@@ -35,7 +38,47 @@ GO
 -- Execute (run/call) the stored procedure as follows:
 EXEC GetName
 
+/* Variables and Flow Control */
 
+-- Declare a variable
+DECLARE @Cost money
+-- Set a value for the variable using a value from the database
+-- Note that the whole SELECT statement is in parenthesis
+SET @Cost = (SELECT CourseCost FROM Course WHERE CourseId = 'DMIT101')
+PRINT @Cost
+
+-- Understanding BEGIN/END blocks
+--  A BEGIN/END block basically acts like a pair of curly braces in C#.
+--  It represents a single block of code, that is, a single set of instructions.
+--  These are helpful especially with the IF/ELSE flow-control statements.
+--  Consider the following example.
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'GuessRows')
+    DROP PROCEDURE GuessRows
+GO
+CREATE PROCEDURE GuessRows
+    @clubRows   int
+AS
+    DECLARE @actual int
+    SELECT @actual = COUNT(ClubId) FROM Club
+    IF @actual <> @clubRows
+    BEGIN
+        RAISERROR('Wrong guess. Club has a different number of rows', 16, 1)
+        IF @clubRows > @actual
+            RAISERROR('Too high a guess', 16, 1)
+        ELSE
+            RAISERROR('Too low a guess', 16, 1)
+    END
+    ELSE
+    BEGIN
+        RAISERROR('Good guess!', 16, 1)
+    END
+RETURN
+GO
+EXEC GuessRows 5
+
+
+/*******************
+ * Sample Problems */
 
 --1. Create a stored procedure called "HonorCourses" to select all the course names that have averages > 80%.
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'HonorCourses')
@@ -72,6 +115,7 @@ RETURN
 GO
 EXEC HonorCoursesOneTerm
 GO
+
 --3. Oops, made a mistake! For question 2, it should have been for semester 2004S. Write the code to change the procedure accordingly. 
 ALTER PROCEDURE HonorCoursesOneTerm
 AS
@@ -115,8 +159,6 @@ GO
 
 -- Call the stored procedure...
 EXEC CourseCalendar
-
-
 
 --4.B. Create a stored procedure called "NotInCourse" that lists the full names of the students that are not in a particular course. The stored procedure should expect the course number as a parameter. e.g.: DMIT221.
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'NotInCourse')
@@ -169,10 +211,14 @@ INSERT INTO Course(CourseId, CourseName, CourseHours, CourseCost, MaxStudents)
 VALUES ('DMIT987', 'Advanced Logic', 90, 420.00, 12)
 
 --6. Create a stored procedure called "Provinces" to list all the students provinces.
+-- TODO: Student Answer Here
 
 --7. OK, question 6 was ridiculously simple and serves no purpose. Lets remove that stored procedure from the database.
+-- TODO: Student Answer Here
 
 --8. Create a stored procedure called StudentPaymentTypes that lists all the student names and their payment types. Ensure all the student names are listed, including those who have not yet made a payment.
+-- TODO: Student Answer Here
 
 --9. Modify the procedure from question 8 to return only the student names that have made payments.
+-- TODO: Student Answer Here
 

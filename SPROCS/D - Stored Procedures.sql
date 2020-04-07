@@ -169,13 +169,16 @@ EXEC RemoveClubMembership 'CSS' -- The second time this is run, there will be no
 
 -- 4) Create a stored procedure called OverActiveMembers that takes a single number: ClubCount. This procedure should return the names of all members that are active in as many or more clubs than the supplied club count.
 --    (p.s. - You might want to make sure to add more members to more clubs, seeing as tests for the last question might remove a lot of club members....)
+-- TODO: Student Answer Here
 
 
 
 -- 5) Create a stored procedure called ListStudentsWithoutClubs that lists the full names of all students who are not active in a club.
+-- TODO: Student Answer Here
 
 
 
 -- 6) Create a stored procedure called LookupStudent that accepts a partial student last name and returns a list of all students whose last name includes the partial last name. Return the student first and last name as well as their ID.
+-- TODO: Student Answer Here
 
 
