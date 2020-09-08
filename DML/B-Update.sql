@@ -66,7 +66,8 @@ WHERE  City = 'Edm'
  * from tables. Depending on the view, however, there may be limitations on what
  * operations you can perform.
  */
-/* The following statements expect the presence of a view called StudentGrades.
+/* The following statements expect the presence of a view called StudentGrades.*/
+GO
 IF OBJECT_ID('StudentGrades', 'V') IS NOT NULL
     DROP VIEW StudentGrades
 GO
@@ -83,7 +84,7 @@ AS
         INNER JOIN Course C ON C.CourseId = R.CourseId
 GO
 -- SELECT * FROM StudentGrades -- Use to examine the results in the view
-*/
+
 --8.  Using the StudentGrades view, change the coursename for the capstone course to be 'basket weaving 101'.
 UPDATE  StudentGrades
 SET     CourseName = 'basket weaving 101'

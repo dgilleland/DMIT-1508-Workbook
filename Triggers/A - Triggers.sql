@@ -124,13 +124,31 @@ AS
     END
 RETURN
 GO
--- TODO: Write code to test this trigger
+-- 3.b. TODO: Write code to test this trigger by creating a stored procedure called RegisterStudent that puts a student in a course and then increases the balance owing by the cost of the course.
 SELECT * FROM Student WHERE BalanceOwing > 0
 
--- Write a stored procedure called RegisterStudent that puts a student in a course and increases the balance owing by the cost of the course.
+-- 4. The Activity table uses a composite primary key. In order to ensure that parts of this key cannot be changed, write a trigger called Activity_PreventUpdate that will prevent changes to the primary key columns.
+IF EXISTS (SELECT * FROM sys.triggers WHERE object_id = OBJECT_ID(N'[dbo].[Activity_PreventUpdate]'))
+    DROP TRIGGER Activity_PreventUpdate
+GO
+
+CREATE TRIGGER Activity_PreventUpdate
+ON Activity
+FOR Update
+AS
+    IF @@ROWCOUNT > 0
+    BEGIN
+        RAISERROR('Modifications to the composite primary key of Registration are not allowed', 16, 1)
+        ROLLBACK TRANSACTION
+    END
+RETURN
+GO
+
+-- 5. The school has placed a temporary hold on the creation of any more clubs. (Existing clubs can be renamed or removed, but no additional clubs can be created.) Put a trigger on the Clubs table to prevent any new clubs from being created.
+-- TODO: Student Answer Here
 
 
---4. Our school DBA has suddenly disabled some Foreign Key constraints to deal with performance issues! Create a trigger on the Registration table to ensure that only valid CourseIDs, StudentIDs and StaffIDs are used for grade records. (You can use sp_help tablename to find the name of the foreign key constraints you need to disable to test your trigger.) Have the trigger raise an error for each foreign key that is not valid. If you have trouble with this question create the trigger so it just checks for a valid student ID.
+-- 6. Our school DBA has suddenly disabled some Foreign Key constraints to deal with performance issues! Create a trigger on the Registration table to ensure that only valid CourseIDs, StudentIDs and StaffIDs are used for grade records. (You can use sp_help tablename to find the name of the foreign key constraints you need to disable to test your trigger.) Have the trigger raise an error for each foreign key that is not valid. If you have trouble with this question create the trigger so it just checks for a valid student ID.
 -- sp_help Registration -- then disable the foreign key constraints....
 ALTER TABLE Registration NOCHECK CONSTRAINT FK_GRD_CRS_CseID
 ALTER TABLE Registration NOCHECK CONSTRAINT FK_GRD_STF_StaID
@@ -173,26 +191,7 @@ AS
 RETURN
 GO
 
--- 5. The school has placed a temporary hold on the creation of any more clubs. (Existing clubs can be renamed or removed, but no additional clubs can be created.) Put a trigger on the Clubs table to prevent any new clubs from being created.
-IF EXISTS (SELECT * FROM sys.triggers WHERE object_id = OBJECT_ID(N'[dbo].[Club_Insert_Lockdown]'))
-    DROP TRIGGER Club_Insert_Lockdown
-GO
-
-CREATE TRIGGER Club_Insert_Lockdown
-ON Club
-FOR Insert -- Choose only the DML statement(s) that apply
-AS
-	-- Body of Trigger
-    IF @@ROWCOUNT > 0
-    BEGIN
-        RAISERROR('Temporary lockdown on creating new clubs.', 16, 1)
-        ROLLBACK TRANSACTION
-    END
-RETURN
-GO
-INSERT INTO Club(ClubId, ClubName) VALUES ('HACK', 'Honest Analyst Computer Knowledge')
-GO
--- 6. Our network security officer suspects our system has a virus that is allowing students to alter their balance owing records! In order to track down what is happening we want to create a logging table that will log any changes to the balance owing in the Student table. You must create the logging table and the trigger to populate it when the balance owing is modified.
+-- 7. Our network security officer suspects our system has a virus that is allowing students to alter their balance owing records! In order to track down what is happening we want to create a logging table that will log any changes to the balance owing in the Student table. You must create the logging table and the trigger to populate it when the balance owing is modified.
 -- Step 1) Make the logging table
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'BalanceOwingLog')
     DROP TABLE BalanceOwingLog
@@ -238,5 +237,17 @@ SELECT * FROM BalanceOwingLog -- To see what's in there after a hack attempt
 UPDATE Student SET BalanceOwing = 10000 -- He's graduated, and doesn't want competition
 SELECT * FROM BalanceOwingLog -- To see what's in there after a hack attempt
 
+-- 8. The Registration table has a composite primary key. In order to ensure that parts of this key cannot be changed, write a trigger called Registration_ProtectPrimaryKey that will prevent changes to the primary key columns.
+-- TODO: Student Answer Here
 
+-- 9. Create a trigger to ensure that an instructor does not teach more than 3 courses in a given semester.
+-- TODO: Student Answer Here
 
+-- 10. Create a trigger to ensure that students cannot be added to a course if the course is already full.
+-- TODO: Student Answer Here
+
+-- 11. Change the Registration_ClassSizeLimit trigger so students will be added to a wait list if the course is already full; make sure the student is not added to Registration, and include a message that the student has been added to a waitlist. You should design a WaitList table to accommodate the changes needed for adding a student to the course once space is freed up for the course. Students should be added on a first-come-first-served basis (i.e. - include a timestamp in your WaitList table)
+-- TODO: Student Answer Here
+
+-- 12. (Advanced) Create a trigger called Registration_AutomaticEnrollment that will add students from the wait list of a course whenever another student withdraws from that course. Pull your students from the WaitList table on a first-come-first-served basis.
+-- TODO: Student Answer Here
