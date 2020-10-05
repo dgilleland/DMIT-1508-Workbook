@@ -1,7 +1,7 @@
 # Databases, Servers, and SSMS
 
 - SQL Server
-  - Software that runas as a *service* on the computer.
+  - Software that runs as a *service* on the computer.
   - Multiple instances of SQL Server can be installed on the same computer.
     - Default Instance - the name of the computer, or `.` to represent the "local machine"
     - Named Instance - the name of the computer followed by the name of the SQL Server instance. e.g.: `.\SQLEXPRESS`
