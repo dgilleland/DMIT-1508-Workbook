@@ -117,4 +117,3 @@ FROM    Student AS S
     LEFT OUTER JOIN Payment AS P
         ON S.StudentID = P.StudentID
 WHERE   P.StudentID IS NULL -- Where the Payment does not exist
-
