@@ -41,6 +41,10 @@ ORDER BY COUNT(PaymentTypeID) ASC
 
 -- 3. Select the average Mark for each studentID. Display the StudentId and their average mark
 -- TODO: Student Answer Here....
+SELECT StudentID,
+       AVG(Mark) AS 'Avg Mark'
+FROM   Registration
+GROUP BY StudentID
 
 -- 4. Select the same data as question 3 but only show the studentID's and averages that are > 80
 SELECT StudentID,
@@ -83,6 +87,9 @@ GROUP BY PaymentTypeID
 
 -- 8. How many students are there in each club? Show the clubID and the count
 -- TODO: Student Answer Here....
+SELECT  ClubId, COUNT(StudentID) AS 'StudentCount'
+FROM    Activity
+GROUP BY ClubId
 
 -- Check your answer by manually grouping students by their club membership and counting them
 SELECT  ClubId, StudentID
@@ -90,19 +97,36 @@ FROM    Activity
 
 -- 9. Which clubs have 3 or more students in them?
 -- TODO: Student Answer Here....
-
+SELECT  ClubID
+FROM    Activity
+GROUP BY ClubId
+HAVING  COUNT(StudentID) >= 3
 
 --10. Grouping the courses by the number of hours in each course, what is the average cost of those courses? Display the course hours and the average cost.
 -- TODO: Student Answer Here
+SELECT  CourseHours, AVG(CourseCost) AS 'AvgCost'
+FROM    Course
+GROUP BY CourseHours
 
 --11. Which teachers are getting the best results from the courses they teach? Display the staff ID and the average course mark, sorted by the course mark from highest to lowest.
 -- TODO: Student Answer Here
+SELECT  StaffID, AVG(Mark) AS 'AvgMark'
+FROM    Registration
+GROUP BY StaffID
+ORDER BY AVG(Mark) DESC
 
 --12. How many male and female students do we have?
 -- TODO: Student Answer Here
+SELECT Gender, COUNT(StudentID) AS 'Count'
+FROM   Student
+GROUP BY Gender
 
 --13. Show the average balance owing for male and female students.
 -- TODO: Student Answer Here
+SELECT Gender, AVG(BalanceOwing) AS 'AverageOwed'
+FROM   Student
+GROUP BY Gender
 
 --14. How many students participate in school clubs? Display the club id and the number of students. (Hint: You should be using the Activity table for this question.)
 -- TODO: Student Answer Here
+-- See Q.8.
