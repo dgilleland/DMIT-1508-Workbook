@@ -80,8 +80,9 @@ FROM    Position
 
 --6.    Select the Course Names whose course hours are less than 96
 SELECT  C.CourseName
-FROM    Course C -- I can have an alias to the table name
+FROM    Course AS C -- I can have an alias to the table name
 WHERE   C.CourseHours < 96
+
 -- Type with me the following...
 SELECT  ST.LastName, ST.DateHired, ST.DateReleased
 FROM    Staff AS ST -- The use of the AS keyword in producing table/column aliases is optional
@@ -112,19 +113,19 @@ WHERE   WithdrawYN = 'Y'
 --8.    Select the studentID's, CourseID and mark where the Mark is
 --      between 70 and 80 and the courseID is DMIT223 or DMIT168
 SELECT  R.StudentID, R.CourseId, R.Mark
-FROM    Registration R
+FROM    Registration AS R
 WHERE   R.Mark BETWEEN 70 AND 80
   AND   (R.CourseId = 'DMIT223' OR R.CourseId = 'DMIT168')
 -- alternate answer to #8
 SELECT  R.StudentID, R.CourseId, R.Mark
-FROM    Registration R
+FROM    Registration AS R
 WHERE   R.Mark BETWEEN 70 AND 80
   AND   R.CourseId IN ('DMIT223', 'DMIT168') -- The IN keyword allows us to have a list of values
                                              -- that will be checked in a OR manner.
 
 --8.a. Select the studentIDs, CourseID and mark where the Mark is 80 and 85
 SELECT  R.StudentID, R.CourseId, R.Mark
-FROM    Registration R
+FROM    Registration AS R
 WHERE   R.Mark = 80 OR R.Mark = 85
 
 -- The next two questions introduce the idea of "wildcards" and pattern matching in the WHERE clause
@@ -143,9 +144,13 @@ WHERE   CourseID LIKE '____1%' -- four underscores, 1, %
 --                     DMIT158
 
 --11. Select the CourseID's and CourseNames where the CourseName contains the word 'programming'
+-- TODO: Student Answer Here
 
 --12. Select all the ClubNames who start with N or C.
+-- TODO: Student Answer Here
 
 --13. Select Student Names, Street Address and City where the lastName is only 3 letters long.
+-- TODO: Student Answer Here
 
 --14. Select all the StudentID's where the PaymentAmount < 500 OR the PaymentTypeID is 5
+-- TODO: Student Answer Here

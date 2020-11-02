@@ -42,8 +42,8 @@ AS
             P.PositionID,
             PositionDescription AS 'PositionName',
             DateHired
-    FROM    Staff S
-        INNER JOIN Position P ON S.PositionID = P.PositionID
+    FROM    Staff AS S
+        INNER JOIN Position AS P ON S.PositionID = P.PositionID
 GO
 SELECT  FullName, PositionName, PositionID
 FROM    StaffConfidential

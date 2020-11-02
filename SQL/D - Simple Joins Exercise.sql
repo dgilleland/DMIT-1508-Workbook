@@ -25,8 +25,8 @@ FROM    Student AS S
 SELECT  DISTINCT -- The DISTINCT keyword will remove duplate rows from the results
         FirstName + ' ' + LastName AS 'Staff Full Name',
         CourseId
-FROM    Staff S
-    INNER JOIN Registration R
+FROM    Staff AS S
+    INNER JOIN Registration AS R
         ON S.StaffID = R.StaffID
 ORDER BY 'Staff Full Name', CourseId
 
@@ -37,8 +37,8 @@ ORDER BY 'Staff Full Name', CourseId
 SELECT  S.FirstName + ' ' + S.LastName AS 'Student Name',
         R.CourseId,
         R.Mark
-FROM    Registration R
-    INNER JOIN Student S
+FROM    Registration AS R
+    INNER JOIN Student AS S
             ON S.StudentID = R.StudentID
 WHERE   S.StudentID = 199899200
 

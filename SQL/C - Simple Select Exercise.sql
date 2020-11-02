@@ -50,6 +50,15 @@ GROUP BY StudentID
 -- The HAVING clause is where we do filtering of Aggregate information
 HAVING AVG(Mark) > 80
 
+-- 4.a. Select the average mark for each student in first year courses (the 5th character of the course id is '1').
+SELECT StudentID,
+       AVG(Mark) AS 'Avg Mark'
+FROM   Registration
+WHERE  CourseId LIKE '____1%' -- Non-aggregate filtering of rows should happen in the WHERE clause
+GROUP BY StudentID
+-- The HAVING clause is where we do filtering of Aggregate information
+HAVING AVG(Mark) > 80
+
 -- 5. How many students are from each city? Display the City and the count.
 SELECT  City,
         COUNT(StudentID) AS 'Student Count'
@@ -84,11 +93,16 @@ FROM    Activity
 
 
 --10. Grouping the courses by the number of hours in each course, what is the average cost of those courses? Display the course hours and the average cost.
+-- TODO: Student Answer Here
 
 --11. Which teachers are getting the best results from the courses they teach? Display the staff ID and the average course mark, sorted by the course mark from highest to lowest.
+-- TODO: Student Answer Here
 
 --12. How many male and female students do we have?
+-- TODO: Student Answer Here
 
 --13. Show the average balance owing for male and female students.
+-- TODO: Student Answer Here
 
 --14. How many students participate in school clubs? Display the club id and the number of students. (Hint: You should be using the Activity table for this question.)
+-- TODO: Student Answer Here

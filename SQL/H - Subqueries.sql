@@ -15,8 +15,8 @@ WHERE  PaymentTypeID = -- Using the = means that the RH side must be a single va
      WHERE  PaymentTypeDescription = 'cash')
 -- Here is the Inner Join version of the above
 SELECT PaymentDate, Amount
-FROM   Payment P
-    INNER JOIN PaymentType PT
+FROM   Payment AS P
+    INNER JOIN PaymentType AS PT
             ON PT.PaymentTypeID = P.PaymentTypeID
 WHERE  PaymentTypeDescription = 'cash'
 
@@ -111,20 +111,20 @@ WHERE City = 'Edm'
 -- 9. What is the avg mark for each of the students from Edm? Display their StudentID and avg(mark)
 -- TODO: Student Answer Here...
 
--- 10. Which student(s) have the highest average mark?
+-- 10. Which course(s) allow the largest classes? Show the course id, name, and max class size.
+-- TODO: Student Answer Here...
+
+-- 11. Which course(s) are the most affordable? Show the course name and cost.
+-- TODO: Student Answer Here...
+
+-- 12. Which staff have taught the largest classes? (Be sure to group registrations by course and semester.)
+-- TODO: Student Answer Here...
+
+-- 13. Which students are most active in the clubs?
+-- TODO: Student Answer Here...
+
+-- 14. Which student(s) have the highest average mark?
 -- Hint - This can only be done by a subquery.
 -- Extra Hint - This one is a bit tricky, because you need to make sure your subquery does not
 --              have any NULL rows...
--- TODO: Student Answer Here...
-
--- 11. Which course(s) allow the largest classes? Show the course id, name, and max class size.
--- TODO: Student Answer Here...
-
--- 12. Which course(s) are the most affordable? Show the course name and cost.
--- TODO: Student Answer Here...
-
--- 13. Which staff have taught the largest classes? (Be sure to group registrations by course and semester.)
--- TODO: Student Answer Here...
-
--- 14. Which students are most active in the clubs?
 -- TODO: Student Answer Here...

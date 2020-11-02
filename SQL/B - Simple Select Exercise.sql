@@ -36,7 +36,7 @@ FROM    Staff
 
 -- 3.d  Do a count of the people in the Staff table who are no longer working here
 --      Refresh your memory about all the data in the Staff table
-SELECT  * FROM Staff
+--      SELECT  * FROM Staff
 SELECT  COUNT(DateReleased) AS 'Retired Staff'
 FROM    Staff
 
