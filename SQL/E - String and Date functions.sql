@@ -153,7 +153,7 @@ FROM    Registration R
 WHERE   Mark IS NOT NULL
   AND   LEFT(Semester, 4) = 2004
 
--- 6. select last three characters of all the courses
+-- 6. select last three characters of all the course ids
 -- TODO: Student Answer Here...
 
 
