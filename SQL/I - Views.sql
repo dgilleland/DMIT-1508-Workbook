@@ -92,5 +92,5 @@ SELECT StaffName, CourseName FROM StaffExperience
 
 --6.  Select the same information using the student grades view for studentID 199912010.
 
---7.  Retrieve the code for the student grades view from the database.
+--7.  Retrieve the course id for the student grades view from the database.
 

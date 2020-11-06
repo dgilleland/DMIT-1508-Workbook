@@ -14,6 +14,8 @@ WHERE  ClubID = 'CSS'
 DELETE FROM Club
 WHERE  ClubID = 'CSS'
 
+-- SELECT * FROM Club AS C LEFT OUTER JOIN Activity AS A ON A.ClubId = C.ClubId
+
 -- 3. The student "Flying Nun" has withdrawn from the school. Remove this student from all clubs they are participating in.
 DELETE FROM Activity
 WHERE  StudentID IN (SELECT StudentID

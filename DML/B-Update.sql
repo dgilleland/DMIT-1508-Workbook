@@ -40,6 +40,7 @@ WHERE  StudentID = 199912010
 
 -- 4. Someone in the registrar's office has noticed a bunch of data-entry errors.
 --    All the student cities named 'Edm' should be changed to 'Edmonton'
+-- SELECT City FROM Student
 UPDATE Student
 SET    City = 'Edmonton'
 WHERE  City = 'Edm'

@@ -164,10 +164,10 @@ SELECT  DISTINCT FirstName + ' ' + LastName AS 'StaffName'
 FROM    Staff AS S
     INNER JOIN Registration AS R
         ON S.StaffID = R.StaffID
-GROUP BY FirstName + ' ' + LastName, CourseId
+GROUP BY FirstName + ' ' + LastName, CourseId, Semester
 HAVING  COUNT(CourseId) >= ALL (SELECT COUNT(CourseId)
                                 FROM   Registration
-                                GROUP BY StaffID, CourseId)
+                                GROUP BY StaffID, CourseId, Semester)
 
 -- 13. Which students are most active in the clubs?
 -- TODO: Student Answer Here...

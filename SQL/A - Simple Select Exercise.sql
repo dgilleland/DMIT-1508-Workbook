@@ -68,6 +68,12 @@ SELECT CourseID, CourseName, CourseHours, MaxStudents, CourseCost
 FROM   Course
 WHERE  CourseID = 'DMIT101'
 
+-- 4.a Select the course information for 'DMIT142'
+SELECT CourseID, CourseName, CourseHours, MaxStudents, CourseCost
+FROM   Course
+WHERE  CourseID = 'DMIT142'
+
+
 --5. Select the Staff names who have job positionID of 3
 SELECT FirstName, LastName
        --,PositionID -- Press [ctrl] + k, then [ctrl] + u to un-comment
@@ -116,6 +122,7 @@ SELECT  R.StudentID, R.CourseId, R.Mark
 FROM    Registration AS R
 WHERE   R.Mark BETWEEN 70 AND 80
   AND   (R.CourseId = 'DMIT223' OR R.CourseId = 'DMIT168')
+  --    I use parenthesis to force the OR operation to happen first
 -- alternate answer to #8
 SELECT  R.StudentID, R.CourseId, R.Mark
 FROM    Registration AS R
