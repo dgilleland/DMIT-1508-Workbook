@@ -89,3 +89,4 @@ FROM    PaymentType
 -- TODO: Student Answer Here
 SELECT  COUNT(Activity.StudentId)
 FROM    Activity
+WHERE   ClubId = 'CSS'
