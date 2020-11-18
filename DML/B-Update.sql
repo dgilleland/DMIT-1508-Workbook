@@ -39,8 +39,8 @@ SET    StreetAddress = '4407-78 Ave',
 WHERE  StudentID = 199912010
 
 -- 4. Someone in the registrar's office has noticed a bunch of data-entry errors.
---    All the student cities named 'Edm' should be changed to 'Edmonton'
 -- SELECT City FROM Student
+--    All the student cities named 'Edm' should be changed to 'Edmonton'
 UPDATE Student
 SET    City = 'Edmonton'
 WHERE  City = 'Edm'
@@ -53,14 +53,27 @@ WHERE  City = 'Edm'
 --       and then check the database to see if those students were assigned
 --       unique values or the same value.
 -- TODO: Student Answer Here....
+-- SELECT StudentID, Mark FROM Registration WHERE Mark IS NULL
+UPDATE Registration
+SET    Mark = (SELECT floor(rand()*101) AS 'Mark')
+WHERE  Mark IS NULL
+-- SELECT StudentID, Mark FROM Registration
 
 -- 6. Choose a student from the previous question and withdraw them from all
 --    of their courses.
 -- TODO: Student Answer Here....
+UPDATE Registration
+SET    WithdrawYN = 'Y'
+WHERE  StudentID = 200688700
 
 -- 7. Bonus Time! Update the marks of all the students in the DMIT152 course by
 --    increasing their marks by 5%. Check the database before and after doing
 --    the update to verify if the changes were correct.
+-- SELECT StudentID, Mark FROM Registration WHERE CourseId = 'DMIT152'
+UPDATE Registration
+SET    Mark = Mark * 1.05
+WHERE  CourseId = 'DMIT152'
+-- SELECT StudentID, Mark FROM Registration WHERE CourseId = 'DMIT152'
 
 /* Updating Tables via Views: -----------------------------
  * It is possible to use a VIEW as an "intermediary" for inserting/updating/deleting
@@ -94,7 +107,16 @@ WHERE   CourseName = 'Capstone Project'
 -- ======= Practice ========
 --9.  Using the StudentGrades view, update the  mark for studentID 199899200 in course dmit152 to be 90.
 -- TODO: Student Answer Here...
+UPDATE StudentGrades
+SET    Mark = 90
+WHERE  StudentID = 199899200
+  AND  CourseId = 'DMIT152'
 
 --10. Using the StudentGrades view, see if you can delete the same record from the previous question.
 --    If it doesn't work, then copy the error message here.
 -- TODO: Student Answer Here...
+DELETE StudentGrades
+WHERE  StudentID = 199899200
+  AND  CourseId = 'DMIT152'
+-- Msg 4405, Level 16, State 1, Line 1
+-- View or function 'StudentGrades' is not updatable because the modification affects multiple base tables.
