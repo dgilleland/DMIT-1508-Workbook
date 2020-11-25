@@ -38,6 +38,68 @@ SET    StreetAddress = '4407-78 Ave',
        PostalCode = 'T4Y3P0'
 WHERE  StudentID = 199912010
 
+/* ================== */
+-- Updating Multiple Columns in One Statement
+-- Consider the following new table with data
+GO
+IF EXISTS(SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N'Rectangle')
+    DROP TABLE Rectangle
+GO
+CREATE TABLE Rectangle
+(
+    Id        int
+        CONSTRAINT PK_Rectangle_Id PRIMARY KEY
+        IDENTITY(1, 1)    NOT NULL,
+    Width     int         NOT NULL,
+    [Length]  int         NOT NULL,
+    Area      int         NOT NULL
+)
+GO
+INSERT INTO Rectangle(Width, [Length], Area)
+VALUES (5, 10, 50)
+GO
+
+-- Now, say we want to increase the width and length by 5
+-- for the rectangle with an Id of 1.
+-- The area would have to be updated as well.
+-- Run the following and then describe if the result is correct or not. What values do you expect to appear in each column?
+UPDATE  Rectangle                     -- Expression Value is
+SET     Width    = Width + 5,         -- ??
+        [Length] = [Length] + 5,      -- ??
+        Area     = Width * [Length]   -- ??
+WHERE   Id = 1
+-- Check the results:
+SELECT Width, [Length], Area
+FROM   rectangle
+-- What went wrong??
+-- The problem with the UPDATE was that the value of the
+-- expression is calculated on the right-hand of the equals
+-- BEFORE anything is assigned in the columns.
+-- That is because the entire row is updated in a SINGLE step,
+-- not one column at a time.
+
+-- Let's reset the values in the table.
+UPDATE  Rectangle
+SET     Width    = 5,
+        [Length] = 10,
+        Area     = 5 * 10
+WHERE   Id = 1
+
+SELECT Width, [Length], Area
+FROM   rectangle
+
+-- Now, let's try it again.
+-- Increase the width and length by 5 and calculate the area.
+UPDATE  Rectangle                                 -- Expression Value is
+SET     Width    = Width + 5,                     -- ??
+        [Length] = [Length] + 5,                  -- ??
+        Area     = (Width + 5) * ([Length] + 5)   -- ??
+WHERE   Id = 1
+
+SELECT Width, [Length], Area
+FROM   rectangle
+/* ================== */
+
 -- 4. Someone in the registrar's office has noticed a bunch of data-entry errors.
 --    All the student cities named 'Edm' should be changed to 'Edmonton'
 UPDATE Student
