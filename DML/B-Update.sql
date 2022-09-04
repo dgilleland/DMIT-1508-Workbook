@@ -39,6 +39,7 @@ SET    StreetAddress = '4407-78 Ave',
 WHERE  StudentID = 199912010
 
 /* ================== */
+/* == Interlude... == */
 -- Updating Multiple Columns in One Statement
 -- Consider the following new table with data
 GO
@@ -98,6 +99,13 @@ WHERE   Id = 1
 
 SELECT Width, [Length], Area
 FROM   rectangle
+
+-- Let's clean up our database by removing this ad-hoc table
+GO
+IF EXISTS(SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N'Rectangle')
+    DROP TABLE Rectangle
+GO
+
 /* ================== */
 
 -- 4. Someone in the registrar's office has noticed a bunch of data-entry errors.
@@ -124,9 +132,6 @@ WHERE  Mark IS NULL
 -- 6. Choose a student from the previous question and withdraw them from all
 --    of their courses.
 -- TODO: Student Answer Here....
-UPDATE Registration
-SET    WithdrawYN = 'Y'
-WHERE  StudentID = 200688700
 
 -- 7. Bonus Time! Update the marks of all the students in the DMIT152 course by
 --    increasing their marks by 5%. Check the database before and after doing
@@ -169,16 +174,8 @@ WHERE   CourseName = 'Capstone Project'
 -- ======= Practice ========
 --9.  Using the StudentGrades view, update the  mark for studentID 199899200 in course dmit152 to be 90.
 -- TODO: Student Answer Here...
-UPDATE StudentGrades
-SET    Mark = 90
-WHERE  StudentID = 199899200
-  AND  CourseId = 'DMIT152'
 
 --10. Using the StudentGrades view, see if you can delete the same record from the previous question.
 --    If it doesn't work, then copy the error message here.
 -- TODO: Student Answer Here...
-DELETE StudentGrades
-WHERE  StudentID = 199899200
-  AND  CourseId = 'DMIT152'
--- Msg 4405, Level 16, State 1, Line 1
--- View or function 'StudentGrades' is not updatable because the modification affects multiple base tables.
+
