@@ -2,6 +2,15 @@
 USE [A01-School]
 GO
 
+-- Imagine we want all the names of the people at the school: Staff and Students
+SELECT  FirstName, LastName
+FROM    Staff
+
+UNION
+
+SELECT  FirstName, LastName
+FROM    Student
+
 --1.	Write a script that will produce the 'It Happened in October' display.
 --The output of the display is shown below
 /*
@@ -41,7 +50,7 @@ WHERE   MONTH(DateHired) = 10
 ORDER BY 'ID' DESC
 GO
 
--- Create a view called RollCall that has the full name of each staff and student as well as identifying their role in to school.
+-- Create a view called RollCall that has the full name of each staff and student as well as identifying their role in the school.
 IF OBJECT_ID('RollCall', 'V') IS NOT NULL
     DROP VIEW RollCall
 GO
@@ -56,8 +65,8 @@ AS
     -- Get all the staff
     SELECT  FirstName + ' ' + LastName AS 'FullName',
             PositionDescription AS 'Role'
-    FROM    Staff S
-        INNER JOIN Position P ON S.PositionID = P.PositionID
+    FROM    Staff AS S
+        INNER JOIN Position AS P ON S.PositionID = P.PositionID
 GO
 
 
@@ -65,3 +74,15 @@ GO
 --    UNION that with a list of the course IDs and the MaxStudents of the course.
 --    The columns should be 'Course', 'Count', and 'Type', with the type for the
 --    first list being 'Actual-' + Semester and the type for the second list being 'Planned'.
+SELECT  CourseId AS 'COURSE',
+        COUNT(CourseId) AS 'Count',
+        'Actual-' + Semester AS 'Type'
+FROM    Registration
+GROUP BY CourseId, Semester
+
+UNION
+
+SELECT  CourseId,
+        MaxStudents,
+        'Planned'
+FROM    Course

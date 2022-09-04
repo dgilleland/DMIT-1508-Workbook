@@ -34,6 +34,7 @@ GO -- Execute the code up to this point as a single batch
 -- 1. Let's add a new course called "Expert SQL". It will be a 90 hour course with a cost of $450.00
 INSERT INTO Course(CourseId, CourseName, CourseHours, CourseCost)
 VALUES ('DMIT777', 'Expert SQL', 90, 450.00)
+-- SELECT * FROM Course
 
 -- 2. Let's add a new staff member, someone who's really good at SQL
 -- SELECT * FROM STAFF
@@ -41,7 +42,8 @@ INSERT INTO Staff(FirstName, LastName, DateHired, PositionID)
 SELECT 'Dan', 'Gilleland', GETDATE(), PositionID
        --, PositionDescription
 FROM   Position
-WHERE  PositionDescription = 'Instructor'
+WHERE  PositionDescription = 'Instructor' -- There should only be 1 row
+
 -- 2b. Let's get another instructor
 INSERT INTO Staff(FirstName, LastName, DateHired, PositionID)
 VALUES ('Shane', 'Bell', GETDATE(), 
@@ -72,8 +74,25 @@ VALUES ('START', 'Small Tech And Research Teams'),
 -- sp_help Student
 -- TIP: When inserting into a datetime column, you can use a string and SQL Server
 --      will convert it for you. E.g.: 'Jan 5, 2020'
+INSERT INTO Student(FirstName, LastName, Gender, Birthdate, StreetAddress, City, Province, PostalCode)
+VALUES ('Nevaeh', 'Bell', 'F', '07/03/1997', '9516 W Dallas St', 'Red Deer', 'AB', 'T3G9R7'),
+       -- https://randomuser.me/api/portraits/women/64.jpg
+       ('Vivan', 'Morgan', 'F', '08/03/1996', '2343 Mockingbird Ln', 'Edmonton', 'AB', 'T4W2S1'),
+       -- https://randomuser.me/api/portraits/women/25.jpg
+       ('Ryan', 'Warren', 'M', '05/04/2001', '6609 Rolling Green Rd', 'Edmonton', 'AB', 'T4K1O1')
+       -- https://randomuser.me/api/portraits/men/81.jpg
+
 
 -- 5. Enroll each of the students you've added into the DMIT777 course.
 --    Use 'Dan Gilleland' as the instructor. At this point, their marks should be NULL.
 -- HINT - Given the wording of this question, be sure to use some kind of subquery in your answer.
 -- TODO: Student Answer Here....
+INSERT INTO Registration(CourseId, Semester,StudentID, StaffID)
+SELECT 'DMIT777', '2020S', StudentID, (SELECT StaffID
+                                       FROM Staff
+                                       WHERE FirstName = 'Dan' AND LastName = 'Gilleland')
+FROM   Student
+WHERE (FirstName = 'Nevaeh' AND LastName = 'Bell' AND Birthdate = '07/03/1997')
+   OR (FirstName = 'Vivan' AND LastName = 'Morgan' AND Birthdate = '08/03/1996')
+   OR (FirstName = 'Ryan' AND LastName = 'Warren' AND Birthdate = '05/04/2001')
+

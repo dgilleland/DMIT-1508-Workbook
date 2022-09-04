@@ -6,6 +6,7 @@ Use [A01-School]
 GO
 
 --1.	Select the average Mark from all the Marks in the registration table
+-- SELECT * FROM Registration - view raw data
 SELECT  AVG(Mark) AS 'Average Mark'
 FROM    Registration
 
@@ -35,7 +36,8 @@ SELECT  COUNT(StaffID) AS 'Staff Count' -- It's common to use the PK as the colu
 FROM    Staff
 
 -- 3.d  Do a count of the people in the Staff table who are no longer working here
---      Refresh your memory about all the data in the Staff table
+--      Refresh your memory about all the data in the Staff table; highlight and run the
+--      select statement in the comment below to see what's in that table.
 --      SELECT  * FROM Staff
 SELECT  COUNT(DateReleased) AS 'Retired Staff'
 FROM    Staff
@@ -71,11 +73,13 @@ WHERE   CourseId = 'DMIT152'
 --8. Select the total of all the payments that have been made
 -- TODO: Student Answer Here
 
+
 --9. How many different payment types does the school accept?
 -- Do a bit of exploratory selects
 SELECT PaymentTypeDescription
 FROM   PaymentType
 -- TODO: Student Answer Here
+
 
 --10. How many students are in club 'CSS'?
 -- TODO: Student Answer Here

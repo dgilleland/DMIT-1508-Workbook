@@ -4,6 +4,13 @@
 
 - *Fill in this list when you are finished your solution. Enter `No known bugs` if you have completed all the lab requirements successfully*
 
+**Generate PDF from Markdown:**
+
+1. Ensure you have the **Markdown PDF** extension to Visual Studio Code installed
+1. Open your markdown document
+1. Press `F1` to open the Command Palette in VS Code
+1. Type `Markdown PDF: Export (pdf)` and press `Enter`
+
 ## Legend
 
 This legend is a guide to reading and interpreting the table listings under 0NF through 3NF.

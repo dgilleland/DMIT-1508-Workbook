@@ -4,6 +4,10 @@
 USE [A01-School]
 GO
 
+-- A Subquery is a query within a query. The inner-most query is called the subquery.
+-- A subquery can appear in almost all clauses of the SELECT statement. For our purposes here,
+-- they tend to appear in the WHERE clause or the HAVING clause.
+
 --1. Select the Payment dates and payment amount for all payments that were Cash
 SELECT PaymentDate, Amount
 FROM   Payment
@@ -23,6 +27,13 @@ WHERE  PaymentTypeDescription = 'cash'
 
 --2. Select The Student ID's of all the students that are in the 'Association of Computing Machinery' club
 -- TODO: Student Answer Here
+/*
+SELECT * FROM Club
+SELECT * FROM Activity
+*/
+-- Thinking of the subquery first, I can find out
+-- what club ID matches for the given club name
+
 
 --3. Select All the staff full names for staff that have taught a course.
 SELECT FirstName + ' ' + LastName AS 'Staff'
@@ -36,13 +47,12 @@ FROM Staff
     INNER JOIN Registration
         ON Staff.StaffID = Registration.StaffID 
 
--- 2.b. Let's revisit/modify Question 2: Select the names of all the students in the 'Association of Computing Machinery' club. Use a subquery for your answer; do not use any JOINs. When you make your answer, ensure the outmost query only uses the Student table in its FROM clause.
-
 --4. Select All the staff full names that taught DMIT172.
 -- TODO: Student Answer Here
 
 --4.b. Who has taught DMIT152?
--- TODO: Student Answer Here...
+-- TODO: Student Answer Here
+
 
 --5. Select All the staff full names of staff that have never taught a course
 SELECT FirstName + ' ' + LastName AS 'Staff'
@@ -112,20 +122,26 @@ WHERE City = 'Edm'
 -- 9. What is the avg mark for each of the students from Edm? Display their StudentID and avg(mark)
 -- TODO: Student Answer Here...
 
+
 -- 10. Which course(s) allow the largest classes? Show the course id, name, and max class size.
 -- TODO: Student Answer Here...
+
 
 -- 11. Which course(s) are the most affordable? Show the course name and cost.
 -- TODO: Student Answer Here...
 
+
 -- 12. Which staff have taught the largest classes? (Be sure to group registrations by course and semester.)
 -- TODO: Student Answer Here...
 
+
 -- 13. Which students are most active in the clubs?
 -- TODO: Student Answer Here...
+
 
 -- 14. Which student(s) have the highest average mark?
 -- Hint - This can only be done by a subquery.
 -- Extra Hint - This one is a bit tricky, because you need to make sure your subquery does not
 --              have any NULL rows...
 -- TODO: Student Answer Here...
+

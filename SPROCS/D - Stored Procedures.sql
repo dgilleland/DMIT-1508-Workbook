@@ -23,7 +23,7 @@ IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROC
 GO
 CREATE PROCEDURE AddPosition
     -- Parameters here
-    @Description    varchar(50)
+    @Description    varchar(50) -- Max of 50 characters
 AS
     -- Body of procedure here
     IF @Description IS NULL
@@ -55,7 +55,14 @@ RETURN
 GO
 
 -- Let's test our AddPosition stored procedure
+INSERT INTO Position(PositionDescription)  VALUES (NULL)
+SELECT @@IDENTITY
+INSERT INTO Position(PositionDescription)  VALUES ('Substitute')
+-- @@IDENTITY is the last-generated/used IDENTITY value regardless of what
+-- database table it was generated in. This is GLOBAL variable.
+SELECT @@IDENTITY -- The PositionID that was actually used/stored
 
+SELECT * FROM Position
 EXEC AddPosition 'The Boss'
 EXEC AddPosition NULL -- This should result in an error being raised
 EXEC AddPosition 'Me' -- This should result in an error being raised
@@ -160,6 +167,12 @@ AS
 RETURN
 GO
 -- Test the above sproc...
+EXEC LookupClubMembers 'CHESS'
+EXEC LookupClubMembers 'CSS'
+EXEC LookupClubMembers 'Drop Out'
+EXEC LookupClubMembers 'NASA1'
+EXEC LookupClubMembers NULL
+
 EXEC RemoveClubMembership NULL
 EXEC RemoveClubMembership 'Drop Out'
 EXEC RemoveClubMembership 'NASA1'
@@ -178,7 +191,15 @@ EXEC RemoveClubMembership 'CSS' -- The second time this is run, there will be no
 
 
 
--- 6) Create a stored procedure called LookupStudent that accepts a partial student last name and returns a list of all students whose last name includes the partial last name. Return the student first and last name as well as their ID.
+-- 6) Create a stored procedure called LookupStudent that accepts a partial student last name and returns a list of all students whose last name includes the partial last name. Require at least 1 character in the supplied parameter. Return the student first and last name as well as their ID.
 -- TODO: Student Answer Here
 
+-- 7) Create a stored procedure called AddPaymentType that takes in a description/name for the payment type and adds it to the PaymentType table. Be sure to prevent any duplicate payment types and also make sure the name of the pament type is at least 4 characters long. Return the PaymentTypeID that was generated for the inserted row.
+-- TODO: Student Answer Here
+
+-- 8) Create a stored procedure called RemovePaymentType that takes in the name of the payment type and deletes it from the PaymentType table. Ensure the supplied name is valid and that it exists. Generate your own error message if the attempted delete fails.
+-- TODO: Student Answer Here
+
+-- 9) Create a stored procedure called RemoveJobPosition that takes in the name of the position and deletes it from the Position table. Ensure the supplied name is valid and that it exists. Generate your own error message if the attempted delete fails.
+-- TODO: Student Answer Here
 

@@ -1,6 +1,13 @@
 -- Stored Procedures (Sprocs)
 -- Validating Parameter Values
 
+/*
+When stored procedures define parameters, they are declaring one or more variables that will hold information that comes in from outside the stored procedure. Because it's coming from outside, we need validate the information that is being passed in.
+Every parameter could potentially have a null value. One of the validations we might need to perform is to make sure that any given parameter is not null.
+When there is something wrong with the data that is supplied in the parameters, we can report that through the RAISERROR() function. It's important to note that RAISERROR() is NOT like throwing an exception in C#: An exception in C# will force the method to exit immediately. But RAISERROR() does not.
+The implication of this is that since our SQL code in our sproc will continue to run, we need to be purposeful about using the ELSE side of our IF statements.
+*/
+
 USE [A01-School]
 GO
 
@@ -35,6 +42,13 @@ AS
 RETURN
 GO
 
+-- Test the sproc with some bad data
+-- EXEC AddClub null, null
+-- EXEC AddClub 'NADA', null
+-- EXEC AddClub null, 'Nominal Attention Deficit Association'
+-- Currently, our NOT NULL constraints on the table are preventing the insert.
+-- BUT, because the table designs could change in the future, maybe we should
+-- put in our own validation.
 
 -- 1.b. Modify the AddClub procedure to ensure that the club name and id are actually supplied. Use the RAISERROR() function to report that this data is required.
 ALTER PROCEDURE AddClub
@@ -43,6 +57,7 @@ ALTER PROCEDURE AddClub
     @ClubName   varchar(50)
 AS
     -- Body of procedure here
+    -- Our validation is all about reporting that something is wrong.
     IF @ClubId IS NULL OR @ClubName IS NULL
     BEGIN
         RAISERROR('Club ID and Name are required', 16, 1)
@@ -71,6 +86,7 @@ RETURN
 GO
 
 EXEC FindStudentClubs NULL  -- What do you predict the result will be?
+-- If you add NULL + '%'  (null added to any string) the result is NULL
 EXEC FindStudentClubs ''    -- What do you predict the result will be?
 GO
 ALTER PROCEDURE FindStudentClubs
@@ -100,7 +116,7 @@ AS
         RAISERROR('The partial ID must be two or more characters', 16, 1)
         -- The 16 is the error number and the 1 is the severity
     END     -- }
-    ELSE
+    ELSE -- Don't forget this!
     BEGIN
         SELECT  ClubID, ClubName
         FROM    Club
@@ -120,7 +136,8 @@ IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROC
 GO
 CREATE PROCEDURE ChangeMailingAddress
     -- Parameters here
-    @StudentId  int,
+    @StudentId  int, -- This is being used for the WHERE clause of my UPDATE
+    -- The remaining parameters are for the data to be SET in the table.
     @Street     varchar(35), -- Model the type/size of parameters to match what's needed in the database tables
     @City       varchar(30),
     @Province   char(2),
@@ -128,11 +145,11 @@ CREATE PROCEDURE ChangeMailingAddress
 AS
     -- Body of procedure here
     -- Validate
-    IF (@StudentId IS NULL OR @Street IS NULL OR @City IS NULL OR @Province IS NULL or @PostalCode IS NULL)
+    IF (@StudentId IS NULL OR @Street IS NULL OR @City IS NULL OR @Province IS NULL OR @PostalCode IS NULL)
     BEGIN --  { A...
         RAISERROR('All parameters require a value (NULL is not accepted)', 16, 1)
     END   -- ...A }
-    ELSE
+    ELSE -- don't forget
     BEGIN -- { B...
         UPDATE  Student
         SET     StreetAddress = @Street
