@@ -2,6 +2,15 @@
 USE [A01-School]
 GO
 
+-- Imagine we want all the names of the people at the school: Staff and Students
+SELECT  FirstName, LastName
+FROM    Staff
+
+UNION
+
+SELECT  FirstName, LastName
+FROM    Student
+
 --1.	Write a script that will produce the 'It Happened in October' display.
 --The output of the display is shown below
 /*

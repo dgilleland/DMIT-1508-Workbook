@@ -32,6 +32,7 @@ CREATE PROCEDURE GetName
 AS
     -- Body of procedure here
     SELECT  'Dan', 'Gilleland'
+    -- How would you change the line above to put column names on the result set?
 RETURN
 GO
 
@@ -55,8 +56,10 @@ PRINT @Cost
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'GuessRows')
     DROP PROCEDURE GuessRows
 GO
+-- 
 CREATE PROCEDURE GuessRows
-    @clubRows   int
+    -- This is the parameter list. These variables don't use the DECLARE keyword
+    @clubRows   int 
 AS
     DECLARE @actual int
     SELECT @actual = COUNT(ClubId) FROM Club
@@ -70,11 +73,12 @@ AS
     END
     ELSE
     BEGIN
-        RAISERROR('Good guess!', 16, 1)
+        RAISERROR('Good guess!', 16, 1) -- Always use:    ,16, 1)
+        --          message, error number, severity/state
     END
 RETURN
 GO
-EXEC GuessRows 5
+EXEC GuessRows 5 -- Call the GuessRows procedure that's in the database.
 
 
 /*******************

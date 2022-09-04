@@ -3,15 +3,27 @@
 USE [A01-School]
 GO
 
+/* SELECT Statement in SQL
+
+SELECT clause   - (Required) Identify the columns/data we want to retrieve
+FROM clause     - Identify the table(s) to look at for the data
+WHERE clause    - Filter the results of the search/query
+GROUP BY clause - Re-organize the rows into groups for some aggregation
+HAVING clause   - Filter the results of our grouping
+ORDER BY clause - Sort our final results
+
+ */
+
 -- Simple Select, without any other clauses
 SELECT  'Dan', 'Gilleland'
 
 -- Simple Select with expressions
 SELECT  'Dan' + ' ' + 'Gilleland', 18 * 52, '5' + '10'
+--        textual information      numbers    textual
 
 -- Specify a column name with some hard-code/calculated values
 SELECT  'Dan' + ' ' + 'Gilleland' AS 'Instructor',
-        19 * 52 AS 'Weeks at the job'
+        22 * 52 AS 'Weeks at the job'
 
 -- Let's use the SELECT statement with database tables
 
@@ -31,6 +43,7 @@ FROM    Club
 SELECT  ClubId AS 'ID', ClubName
 FROM    Club
 
+-- These keyboard shortcuts are for SQL Server Management Studio (SSMS)
   -- Pro-Tip: Press [ctrl] + r to toggle the results window
   -- Pro-Tip: If you write the FROM clause before specifying the columns,
   --            you will get Intellisense help on the column names
@@ -49,8 +62,12 @@ FROM    Student
 --      and sort the results by the last name
 SELECT    FirstName, LastName
 FROM      Student
-ORDER BY  LastName
--- 2.d. Select the first and last names of all the students,
+ORDER BY  LastName -- default is to sort in ASCENDING order
+-- 2.d
+SELECT    FirstName, LastName
+FROM      Student
+ORDER BY  LastName DESC -- Descending order
+-- 2.e. Select the first and last names of all the students,
 --      and sort the results by the last name, then by the first name
 SELECT    FirstName, LastName
 FROM      Student
@@ -73,6 +90,10 @@ SELECT CourseID, CourseName, CourseHours, MaxStudents, CourseCost
 FROM   Course
 WHERE  CourseID = 'DMIT142'
 
+-- 4.b. Select all the first-year courses (DMIT1xx). Show the ID and the name.
+SELECT CourseID, CourseName
+FROM   Course
+WHERE  CourseID LIKE 'DMIT1%'
 
 --5. Select the Staff names who have job positionID of 3
 SELECT FirstName, LastName
@@ -119,13 +140,13 @@ WHERE   WithdrawYN = 'Y'
 --8.    Select the studentID's, CourseID and mark where the Mark is
 --      between 70 and 80 and the courseID is DMIT223 or DMIT168
 SELECT  R.StudentID, R.CourseId, R.Mark
-FROM    Registration AS R
+FROM    Registration AS R -- Alias for the Registration table
 WHERE   R.Mark BETWEEN 70 AND 80
   AND   (R.CourseId = 'DMIT223' OR R.CourseId = 'DMIT168')
   --    I use parenthesis to force the OR operation to happen first
 -- alternate answer to #8
 SELECT  R.StudentID, R.CourseId, R.Mark
-FROM    Registration AS R
+FROM    Registration AS R -- Alias for the Registration table
 WHERE   R.Mark BETWEEN 70 AND 80
   AND   R.CourseId IN ('DMIT223', 'DMIT168') -- The IN keyword allows us to have a list of values
                                              -- that will be checked in a OR manner.
@@ -152,28 +173,17 @@ WHERE   CourseID LIKE '____1%' -- four underscores, 1, %
 
 --11. Select the CourseID's and CourseNames where the CourseName contains the word 'programming'
 -- TODO: Student Answer Here
-SELECT  C.CourseId, C.CourseName
-FROM    Course AS C
-WHERE   CourseName LIKE '%programming%'
+
 
 --12. Select all the ClubNames who start with N or C.
 -- TODO: Student Answer Here
-SELECT  RG.ClubName
-FROM    Club AS RG
---WHERE   RG.ClubName LIKE 'N%' OR RG.ClubName LIKE 'C%'
-WHERE   RG.ClubName LIKE '[NC]%'
+
 
 --13. Select Student Names, Street Address and City where the lastName is only 3 letters long.
 -- TODO: Student Answer Here
-SELECT  S.FirstName + ' ' + S.LastName AS 'StudentName',
-        S.StreetAddress,
-        S.City
-FROM    Student AS S
-WHERE   S.LastName LIKE '___'
+
 
 --14. Select all the StudentID's where the PaymentAmount < 500 OR the PaymentTypeID is 5
 -- TODO: Student Answer Here
-SELECT  StudentID
-FROM    Payment
-WHERE   Amount < 500
-   OR   PaymentTypeID = 5
+
+

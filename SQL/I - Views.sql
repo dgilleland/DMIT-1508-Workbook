@@ -2,6 +2,13 @@
 USE [A01-School]
 GO
 
+-- Database tables are all about storing information.
+-- SELECT statements are all about retrieving information from our database.
+-- SELECT statements produce a "tabular" result set: the results "look like" a table.
+-- A View is simply a stored SELECT statement that produces a tabluar result.
+-- The View does not directly store information (that's done by our tables).
+-- Rather, the View "extracts" data from the tables by using a SELECT statement under the hood.
+
 --1.  Create a view of staff full names called StaffList.
 IF OBJECT_ID('StaffList', 'V') IS NOT NULL
     DROP VIEW StaffList
@@ -89,8 +96,11 @@ SELECT StaffName, CourseName FROM StaffExperience
  */
 
 --5.  Use the student grades view to create a grade report for studentID 199899200 that shows the students ID, full name, course names and marks.
+-- TODO: Student Answer here
 
 --6.  Select the same information using the student grades view for studentID 199912010.
+-- TODO: Student Answer here
 
 --7.  Retrieve the course id for the student grades view from the database.
+-- TODO: Student Answer here
 
