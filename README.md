@@ -33,7 +33,7 @@ Recommended tools for this course include:
   - Begin your journey with VS Code with these [introductory videos](https://code.visualstudio.com/docs/introvideos/overview).
   - Alternate SQL Editors:
     - [Sql Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15#download-ssms) (*SSMS*)
-    - [Azure Data Studio](https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio) or [Sql Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15#download-ssms) (*SSMS*)
+    - [Azure Data Studio](https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio)
 - [**LucidChart**](https://www.lucidchart.com/pages/) or **Draw.io** ([desktop](https://about.draw.io/integrations/#integrations_offline) and [online](https://draw.io) versions)
 
 Other recommended resources include:
