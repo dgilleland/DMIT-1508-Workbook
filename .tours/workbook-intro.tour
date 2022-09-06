@@ -1,0 +1,24 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "Workbook Intro",
+  "steps": [
+    {
+      "file": "README.md",
+      "description": "Remember to put your name in this line so that you instructor quickly recognizes whose repository they are viewing. For example, if your name was \"Stewart Dent\", you could put in the following:\r\n\r\n```markdown\r\n> **Stew Dent**\r\n```\r\n\r\nYou can edit the line right now (this will serve as a good practice for both editing a file and using git in VS Code). Once you have edited that line, save the changes to your file (<kbd>CTRL</KBD> + <kbd>s</kbd>).\r\n\r\nWhen you have edited files in your workbook, you can commit those changes to your repository. First, you need to \"stage\" the changes you want to commit. \"Staging\" means choosing which files to commit; to stage all changes, enter the following in the terminal.\r\n\r\n>> git add .\r\n\r\nTo perform the actual commit of the staged files, use this command: `git commit -m \"Your commit message\"`. For example, the following command will commit the change you made by entering your name.\r\n\r\n>> git commit -m \"Added my name\"\r\n\r\nLastly, get into a regular habit of pushing your changes to GitHub.\r\n\r\n>> git push\r\n",
+      "line": 3,
+      "title": "Enter your name here"
+    },
+    {
+      "file": "README.md",
+      "description": "Remember to take some time to practice using Markdown. It will be very helpful for taking notes in class.",
+      "line": 41,
+      "title": "Learn Markdown"
+    },
+    {
+      "file": "README.md",
+      "description": "Pay special attention to this warning!",
+      "line": 9,
+      "title": "Warning"
+    }
+  ]
+}
