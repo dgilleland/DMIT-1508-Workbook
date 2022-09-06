@@ -6,6 +6,6 @@
 
 In every project you undertake in your software development career, there are three key skills you will always depend upon.
 
-1. [Know Your **Problem**](./problem-solving.md)
-1. [Know Your **Language**](./language-ref.md)
-1. [Know Your **Tools**](./tool-tips.md)
+1. [Know Your **Problem**](./ProblemSolving.md)
+1. [Know Your **Language**](./LanguageRef.md)
+1. [Know Your **Tools**](./ToolTips.md)

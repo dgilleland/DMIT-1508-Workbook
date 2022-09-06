@@ -9,6 +9,12 @@
       "title": "Enter your name here"
     },
     {
+      "file": "Docs/logs/ReadMe.md",
+      "description": "This file contains all the learning outcome guides for the course. You are encouraged to add notes to this file for your own reference.",
+      "line": 1,
+      "title": "Learning Outcome Guides"
+    },
+    {
       "file": "README.md",
       "description": "Remember to take some time to practice using Markdown. It will be very helpful for taking notes in class.",
       "line": 41,
