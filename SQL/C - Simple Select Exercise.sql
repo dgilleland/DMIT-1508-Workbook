@@ -2,7 +2,7 @@
 -- This sample set illustrates the GROUP BY syntax and the use of Aggregate functions
 -- with GROUP BY.
 -- It also demonstrates the HAVING clause to filter on aggregate values.
-USE [A01-School]
+USE [A0X-School]
 GO
 
 

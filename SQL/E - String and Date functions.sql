@@ -1,5 +1,5 @@
 -- String and Date Functions Exercise
-USE [A01-School]
+USE [A0X-School]
 GO
 
 /* ************************************************

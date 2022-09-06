@@ -1,6 +1,6 @@
 --SIMPLE SELECT EXERCISE 1
 
-USE [A01-School]
+USE [A0X-School]
 GO
 
 /* SELECT Statement in SQL

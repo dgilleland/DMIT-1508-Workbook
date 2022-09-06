@@ -1,5 +1,5 @@
 -- Triggers Samples
-USE [A01-School]
+USE [A0X-School]
 GO
 
 /*

@@ -1,5 +1,5 @@
 -- Insert Examples
-USE [A01-School]
+USE [A0X-School]
 GO -- Execute the code up to this point as a single batch
 
 /*  Notes:

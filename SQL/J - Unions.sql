@@ -1,5 +1,5 @@
 --Union Exercise (using the IQSchool database)
-USE [A01-School]
+USE [A0X-School]
 GO
 
 -- Imagine we want all the names of the people at the school: Staff and Students

@@ -1,13 +1,13 @@
 /* School database - DMIT-1508-A01, Jan 2017 
    Table Creation and Load Data Script 
    **************************************** */
-IF NOT EXISTS (SELECT name FROM master.sys.databases WHERE name = N'A01-School')
+IF NOT EXISTS (SELECT name FROM master.sys.databases WHERE name = N'A0X-School')
 BEGIN
-    CREATE DATABASE [A01-School]
+    CREATE DATABASE [A0X-School]
 END
 GO
 
-USE [A01-School]
+USE [A0X-School]
 GO
 
 IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Payment')
@@ -158,7 +158,7 @@ go
 
 /* School158 Data Inserts */
 
-USE [A01-School]
+USE [A0X-School]
 GO
 
 delete from Payment

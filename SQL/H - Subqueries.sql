@@ -1,7 +1,7 @@
 --Subquery Exercise
 --Use the IQSchool database for this exercise. Each question must use a subquery in its solution.
 --**If the questions could also be solved without a subquery, solve it without one as well**
-USE [A01-School]
+USE [A0X-School]
 GO
 
 -- A Subquery is a query within a query. The inner-most query is called the subquery.
