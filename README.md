@@ -29,6 +29,10 @@ The general topics in this workbook include
 Recommended tools for this course include:
 
 - [SQL Server 2019](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) or higher, **Developer Edition**
+  - If you are installing SQL Server on a Mac, follow the instructions in this article:
+    - [How to Install SQL Server on a Mac](https://database.guide/how-to-install-sql-server-on-a-mac/)
+  - You might also find this video useful:
+    - [Step By Step Guide To Install MSSQL Server On Mac Using Docker](https://youtu.be/BVNWRYPv78o) (20 min, 27 sec)
 - [Git for Windows/macOS/Linux](https://git-scm.com/downloads)
 - [GitHub CLI](https://cli.github.com/)
 - [**Visual Studio Code**](https://code.visualstudio.com) as your *primary editor*
