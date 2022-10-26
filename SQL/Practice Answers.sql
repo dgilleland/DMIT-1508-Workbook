@@ -250,20 +250,40 @@ WHERE   PositionID = 5
    ------------------------------- */
 --3. How many payments where made for each payment type. Display the PaymentTypeDescription and the count.
  -- TODO: Student Answer Here... 
-
+SELECT  PaymentTypeDescription,
+        COUNT(P.PaymentTypeID) AS 'Count'
+FROM    PaymentType AS PT
+    INNER JOIN Payment AS P ON P.PaymentTypeID = PT.PaymentTypeID
+GROUP BY PaymentTypeDescription
 
 --5. Select the same data as question 4 but only show the student names and averages that are 80% or higher. (HINT: Remember the HAVING clause?)
  -- TODO: Student Answer Here... 
-
+SELECT  S.FirstName  + ' ' + S.LastName AS 'Student Name',
+        AVG(R.Mark)                     AS 'Average'
+FROM    Registration AS R
+        INNER JOIN Student AS S
+            ON S.StudentID = R.StudentID
+GROUP BY    S.FirstName  + ' ' + S.LastName
+HAVING  AVG(R.Mark) >= 80
 
 --6. What is the highest, lowest and average payment amount for each payment type Description?
  -- TODO: Student Answer Here... 
-
+SELECT  PaymentTypeDescription,
+        MAX(P.Amount) AS 'Highest',
+        MIN(P.Amount) AS 'Lowest',
+        AVG(P.Amount) AS 'Average'
+FROM    PaymentType AS PT
+    INNER JOIN Payment AS P ON P.PaymentTypeID = PT.PaymentTypeID
+GROUP BY PaymentTypeDescription
 
  
 --7. Which clubs have 3 or more students in them? Display the Club Names.
  -- TODO: Student Answer Here... 
-
+SELECT  ClubName
+FROM    Club AS C
+    INNER JOIN Activity AS A ON A.ClubId = C.ClubId
+GROUP BY ClubName
+HAVING  COUNT(ClubName) >= 3
 
 
 
@@ -272,33 +292,82 @@ WHERE   PositionID = 5
    ------------------------------- */
 --5. How many students are in each club? Display club name and count.
 -- TODO: Student Answer Here...
-
+SELECT  ClubName,
+        COUNT(Studentid) AS 'StudentCount'
+FROM    Club
+    LEFT OUTER JOIN Activity
+        ON Club.ClubId = Activity.ClubId
+GROUP BY ClubName
 
 --6. How many times has each course been offered? Display the course ID and course name along with the number of times it has been offered.
 -- TODO: Student Answer Here...
-
+SELECT  C.CourseId, C.CourseName, COUNT(R.CourseId) AS 'Offerings'
+FROM    Course AS C
+    LEFT OUTER JOIN Registration AS R
+        ON C.CourseId = R.CourseId
+GROUP BY C.CourseId, C.CourseName
 
 --7. How many courses have each of the staff taught? Display the full name and the count.
 -- TODO: Student Answer Here...
-
+SELECT  FirstName + ' ' + LastName,
+        COUNT(R.CourseId) AS 'CourseCount'
+FROM    Staff AS S
+    LEFT OUTER JOIN Registration AS R ON S.StaffID = R.StaffID
+GROUP BY FirstName, LastName
 
 --   Another way of interpreting the question is to think of the number of "kinds" of courses the staff has taught
-
+SELECT  FirstName + ' ' + LastName,
+       COUNT(DISTINCT CourseId) AS 'CourseCount'
+FROM    Staff AS S
+   LEFT OUTER JOIN Registration AS R ON S.StaffID = R.StaffID
+GROUP BY FirstName, LastName
 
 --8. How many second-year courses have the staff taught? Include all the staff and their job position.
 --   A second-year course is one where the number portion of the course id starts with a '2'.
 -- TODO: Student Answer Here...
+SELECT  PositionDescription,
+        FirstName + ' ' + LastName AS 'StaffName',
+        COUNT(CourseId) AS 'CourseCount'
+FROM    Position AS P
+    -- Use an INNER join to only include positions with staff members
+    --INNER JOIN Staff AS S ON P.PositionID = S.PositionID
+    LEFT OUTER JOIN Staff AS S ON P.PositionID = S.PositionID
+    LEFT OUTER JOIN Registration AS R ON S.StaffID = R.StaffID
+WHERE   CourseId LIKE '____2%' -- An underscore means a single character
+   OR   CourseId IS NULL -- Now I will get staff that haven't taught a course
+GROUP BY PositionDescription, FirstName, LastName
 
+--   Another way of interpreting the question is to think of the number of "kinds" of courses the staff has taught
+SELECT  PositionDescription,
+        FirstName + ' ' + LastName AS 'StaffName',
+        COUNT(DISTINCT CourseId) AS 'CourseCount'
+FROM    Position AS P
+    -- Use an INNER join to only include positions with staff members
+    --INNER JOIN Staff AS S ON P.PositionID = S.PositionID
+    LEFT OUTER JOIN Staff AS S ON P.PositionID = S.PositionID
+    LEFT OUTER JOIN Registration AS R ON S.StaffID = R.StaffID
+WHERE   CourseId LIKE '____2%' -- An underscore means a single character
+   OR   CourseId IS NULL -- Now I will get staff that haven't taught a course
+GROUP BY PositionDescription, FirstName, LastName
 
 
 --9. What is the average payment amount made by each student? Include all the students,
 --   and display the students' full names.
 -- TODO: Student Answer Here...
-
+SELECT  FirstName + ' ' + LastName AS 'Student',
+        AVG(Amount) AS 'AveragePayment'
+FROM    Student AS S 
+    LEFT OUTER JOIN Payment AS P
+        ON S.StudentID = P.StudentID
+GROUP BY FirstName, LastName
 
 --10. Display the names of all students who have not made a payment.
 -- TODO: Student Answer Here...
-
+SELECT  FirstName + ' ' + LastName AS 'StudentName'
+FROM    Student AS S
+    LEFT OUTER JOIN Payment AS P
+        ON S.StudentID = P.StudentID
+WHERE   P.StudentID IS NULL -- Where the Payment does not exist
 
 
 /* ===============================
