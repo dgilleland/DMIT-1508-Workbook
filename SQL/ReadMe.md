@@ -27,6 +27,8 @@ Once you know how the basics of `SELECT` statements work, you can begin making m
 
 Lastly, we'll looked at using the `UNION` keyword to bring together the results of two or more `SELECT` statements as a single result table.
 
+Also, review the [operators](./OperatorStatements.md) available for use in WHERE and HAVING clauses. (These are the same as ones used in CHECK constraints.)
+
 ----
 
 ## [`A - Simple Select Exercise.sql`](./A%20-%20Simple%20Select%20Exercise.sql)
