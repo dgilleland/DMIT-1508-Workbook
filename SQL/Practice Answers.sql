@@ -223,9 +223,14 @@ ORDER BY R.CourseId
 -- TODO: Student Answer Here...
 
 
--- 7. Select the characters in the position description from characters 8 to 13 for PositionID 5
+-- 7. Select the characters in the position description from characters 8 to 12
+--    (five characters worth) for PositionID 5
 -- TODO: Student Answer Here...
-
+-- Exploring...
+SELECT * FROM Position
+SELECT  SUBSTRING(PositionDescription, 8, 5)
+FROM    [Position]
+WHERE   PositionID = 5
 
 -- 8. Select all the Student First Names as upper case.
 -- TODO: Student Answer Here...
