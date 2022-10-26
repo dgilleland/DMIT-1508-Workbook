@@ -2,5 +2,272 @@
  *************************************************/
 
 /* ===============================
-   |  A - Stored Procedures.sql  |
+   |  A - Simple Select          |
    ------------------------------- */
+--11. Select the CourseID's and CourseNames where the CourseName contains the word 'programming'
+-- TODO: Student Answer Here
+
+
+--12. Select all the ClubNames who start with N or C.
+-- TODO: Student Answer Here
+
+
+--13. Select Student Names, Street Address and City where the lastName is only 3 letters long.
+-- TODO: Student Answer Here
+
+
+--14. Select all the StudentID's where the PaymentAmount < 500 OR the PaymentTypeID is 5
+-- TODO: Student Answer Here
+
+
+/* ===============================
+   |  B - Simple Select          |
+   ------------------------------- */
+--5.	Select the average payment amount for payment type 5
+-- TODO: Student Answer Here - Hint: It's in the Payment table....
+
+
+-- Given that there are some other aggregate methods like MAX(columnName) and MIN(columnName), complete the following two questions:
+--6. Select the highest payment amount
+-- TODO: Student Answer Here
+
+
+--7.	 Select the lowest payment amount
+-- TODO: Student Answer Here
+
+
+--8. Select the total of all the payments that have been made
+-- TODO: Student Answer Here
+
+
+--9. How many different payment types does the school accept?
+-- Do a bit of exploratory selects
+SELECT PaymentTypeDescription
+FROM   PaymentType
+-- TODO: Student Answer Here
+
+
+--10. How many students are in club 'CSS'?
+-- TODO: Student Answer Here
+
+
+
+/* ===============================
+   |  C - Simple Select          |
+   ------------------------------- */
+-- 3. Select the average Mark for each studentID. Display the StudentId and their average mark
+-- TODO: Student Answer Here....
+SELECT StudentID,
+       AVG(Mark) AS 'Avg Mark'
+FROM   Registration
+GROUP BY StudentID
+
+-- 8. How many students are there in each club? Show the clubID and the count
+-- TODO: Student Answer Here....
+
+
+-- Check your answer by manually grouping students by their club membership and counting them
+SELECT  ClubId, StudentID
+FROM    Activity
+
+-- 9. Which clubs have 3 or more students in them?
+-- TODO: Student Answer Here....
+
+
+--10. Grouping the courses by the number of hours in each course, what is the average cost of those courses? Display the course hours and the average cost.
+-- TODO: Student Answer Here
+
+
+--11. Which teachers are getting the best results from the courses they teach? Display the staff ID and the average course mark, sorted by the course mark from highest to lowest.
+-- TODO: Student Answer Here
+
+
+--12. How many male and female students do we have?
+-- TODO: Student Answer Here
+
+
+--13. Show the average balance owing for male and female students.
+-- TODO: Student Answer Here
+
+
+--14. How many students participate in school clubs? Display the club id and the number of students. (Hint: You should be using the Activity table for this question.)
+-- TODO: Student Answer Here
+-- See Q.8.
+
+/* ===============================
+   |  D - Simple Joins           |
+   ------------------------------- */
+--5.	Select the Student full name, course names and marks for studentID 199899200.
+-- TODO: Student Answer Here...
+
+
+--6.	Select the CourseID, CourseNames, and the Semesters they have been taught in
+-- TODO: Student Answer Here...
+
+
+--7.	What Staff Full Names have taught Networking 1?
+-- TODO: Student Answer Here...
+
+
+--8.	What is the course list for student ID 199912010 in semester 2001S. Select the Students Full Name and the CourseNames
+-- TODO: Student Answer Here...
+
+
+--9. What are the Student Names, courseID's with individual Marks at 80% or higher? Sort the results by course.
+-- TODO: Student Answer Here...
+
+
+--10. Modify the script from the previous question to show the Course Name along with the ID.
+-- TODO: Student Answer Here...
+
+
+
+/* ===============================
+   |  E - Strings & Dates        |
+   ------------------------------- */
+-- 6. select last three characters of all the course ids
+-- TODO: Student Answer Here...
+
+
+-- 7. Select the characters in the position description from characters 8 to 13 for PositionID 5
+-- TODO: Student Answer Here...
+
+
+-- 8. Select all the Student First Names as upper case.
+-- TODO: Student Answer Here...
+
+
+-- 9. Select the First Names of students whose first names are 3 characters long.
+-- TODO: Student Answer Here...
+
+
+
+/* ===============================
+   |  F - Inner Join Aggregates  |
+   ------------------------------- */
+--3. How many payments where made for each payment type. Display the PaymentTypeDescription and the count.
+ -- TODO: Student Answer Here... 
+
+
+--5. Select the same data as question 4 but only show the student names and averages that are 80% or higher. (HINT: Remember the HAVING clause?)
+ -- TODO: Student Answer Here... 
+
+
+--6. What is the highest, lowest and average payment amount for each payment type Description?
+ -- TODO: Student Answer Here... 
+
+
+ 
+--7. Which clubs have 3 or more students in them? Display the Club Names.
+ -- TODO: Student Answer Here... 
+
+
+
+
+/* ===============================
+   |  G - Outer Joins            |
+   ------------------------------- */
+--5. How many students are in each club? Display club name and count.
+-- TODO: Student Answer Here...
+
+
+--6. How many times has each course been offered? Display the course ID and course name along with the number of times it has been offered.
+-- TODO: Student Answer Here...
+
+
+--7. How many courses have each of the staff taught? Display the full name and the count.
+-- TODO: Student Answer Here...
+
+
+--   Another way of interpreting the question is to think of the number of "kinds" of courses the staff has taught
+
+
+--8. How many second-year courses have the staff taught? Include all the staff and their job position.
+--   A second-year course is one where the number portion of the course id starts with a '2'.
+-- TODO: Student Answer Here...
+
+
+
+--9. What is the average payment amount made by each student? Include all the students,
+--   and display the students' full names.
+-- TODO: Student Answer Here...
+
+
+--10. Display the names of all students who have not made a payment.
+-- TODO: Student Answer Here...
+
+
+
+/* ===============================
+   |  H - Subqueries             |
+   ------------------------------- */
+--2. Select The Student ID's of all the students that are in the 'Association of Computing Machinery' club
+-- TODO: Student Answer Here
+/*
+SELECT * FROM Club
+SELECT * FROM Activity
+*/
+-- Thinking of the subquery first, I can find out
+-- what club ID matches for the given club name
+
+--4. Select All the staff full names that taught DMIT172.
+-- TODO: Student Answer Here
+
+--4.b. Who has taught DMIT152?
+-- TODO: Student Answer Here
+
+-- 9. What is the avg mark for each of the students from Edm? Display their StudentID and avg(mark)
+-- TODO: Student Answer Here...
+
+
+-- 10. Which course(s) allow the largest classes? Show the course id, name, and max class size.
+-- TODO: Student Answer Here...
+
+
+-- 11. Which course(s) are the most affordable? Show the course name and cost.
+-- TODO: Student Answer Here...
+
+
+-- 12. Which staff have taught the largest classes? (Be sure to group registrations by course and semester.)
+-- TODO: Student Answer Here...
+
+
+-- 13. Which students are most active in the clubs?
+-- TODO: Student Answer Here...
+
+
+-- 14. Which student(s) have the highest average mark?
+-- Hint - This can only be done by a subquery.
+-- Extra Hint - This one is a bit tricky, because you need to make sure your subquery does not
+--              have any NULL rows...
+-- TODO: Student Answer Here...
+
+
+
+/* ===============================
+   |  I - Views                  |
+   ------------------------------- */
+--4.  Create a view called StudentGrades that retrieves the student ID's, full names, courseId's, course names, and marks for each student.
+-- TODO: Student Answer here
+
+/* *******************
+ * Using the Views
+ *  If an operation fails write a brief explanation why.
+ *  Do not just quote the error message generated by the server!
+ */
+
+--5.  Use the student grades view to create a grade report for studentID 199899200 that shows the students ID, full name, course names and marks.
+-- TODO: Student Answer here
+
+--6.  Select the same information using the student grades view for studentID 199912010.
+-- TODO: Student Answer here
+
+--7.  Retrieve the course id for the student grades view from the database.
+-- TODO: Student Answer here
+
+
+
+/* ===============================
+   |  J - Unions                 |
+   ------------------------------- */
+

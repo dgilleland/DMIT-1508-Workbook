@@ -30,7 +30,7 @@ SELECT  PaymentTypeID,                              -- Non-aggregate column (btw
         COUNT(PaymentTypeID) AS 'Count of Pay Type' -- Aggregate column
 FROM    Payment
 GROUP BY PaymentTypeID
-ORDER BY COUNT(PaymentTypeID) ASC
+ORDER BY COUNT(PaymentTypeID)
 -- HELP! Is the answer above correct?? How can we fix it?
 /* A note on ORDER BY
    - The ORDER BY clause will, by default, do the sorting in ascending order.
@@ -41,10 +41,6 @@ ORDER BY COUNT(PaymentTypeID) ASC
 
 -- 3. Select the average Mark for each studentID. Display the StudentId and their average mark
 -- TODO: Student Answer Here....
-SELECT StudentID,
-       AVG(Mark) AS 'Avg Mark'
-FROM   Registration
-GROUP BY StudentID
 
 -- 4. Select the same data as question 3 but only show the studentID's and averages that are > 80
 SELECT StudentID,
