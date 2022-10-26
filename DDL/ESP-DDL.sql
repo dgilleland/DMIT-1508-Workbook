@@ -7,6 +7,12 @@
  *
  * Author: Dan Gilleland
  ********************************************** */
+-- The following SELECT statement calls a database function named DB_NAME()
+-- which will return the name of the current database context. For example,
+-- if you are connected to the default database, this function should return
+-- 'master' as the database name.
+SELECT DB_NAME()
+GO
 
 -- Select the CREATE DATABASE stement below to create the demo database.
 -- CREATE DATABASE [ESP-A01]
@@ -18,6 +24,10 @@ USE [ESP-A01] -- this is a statement that tells us to switch to a particular dat
 -- the use of square brackets are optional.
 GO  -- this statement helps to "separate" various DDL statements in our script
     -- so that they are executed as "blocks" of code.
+-- Notice that after our USE statement above, we have a new context for our script to
+-- operate within.
+SELECT DB_NAME()
+GO
 
 -- To create a database table, we use the CREATE TABLE statement.
 -- Note that the order in which we create/drop tables is important
@@ -25,14 +35,10 @@ GO  -- this statement helps to "separate" various DDL statements in our script
 
 /* DROP TABLE statements (to "clean up" the database for re-creation)  */
 /*   You should drop tables in the REVERSE order in which you created them */
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'OrderDetails')
-    DROP TABLE OrderDetails
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'InventoryItems')
-    DROP TABLE InventoryItems
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Orders')
-    DROP TABLE Orders
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Customers')
-    DROP TABLE Customers
+DROP TABLE IF EXISTS OrderDetails
+DROP TABLE IF EXISTS InventoryItems
+DROP TABLE IF EXISTS Orders
+DROP TABLE IF EXISTS Customers
 
 
 -- To create a database table, we use the CREATE TABLE statement.
