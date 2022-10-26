@@ -6,18 +6,34 @@
    ------------------------------- */
 --11. Select the CourseID's and CourseNames where the CourseName contains the word 'programming'
 -- TODO: Student Answer Here
+SELECT  C.CourseId, C.CourseName
+FROM    Course AS C
+WHERE   CourseName LIKE '%programming%'
 
 
 --12. Select all the ClubNames who start with N or C.
 -- TODO: Student Answer Here
+SELECT  RG.ClubName
+FROM    Club AS RG
+--WHERE   RG.ClubName LIKE 'N%' OR RG.ClubName LIKE 'C%'
+WHERE   RG.ClubName LIKE '[NC]%'
 
 
 --13. Select Student Names, Street Address and City where the lastName is only 3 letters long.
 -- TODO: Student Answer Here
+SELECT  S.FirstName + ' ' + S.LastName AS 'StudentName',
+        S.StreetAddress,
+        S.City
+FROM    Student AS S
+WHERE   S.LastName LIKE '___'
 
 
 --14. Select all the StudentID's where the PaymentAmount < 500 OR the PaymentTypeID is 5
 -- TODO: Student Answer Here
+SELECT  StudentID
+FROM    Payment
+WHERE   Amount < 500
+   OR   PaymentTypeID = 5
 
 
 /* ===============================
@@ -25,19 +41,28 @@
    ------------------------------- */
 --5.	Select the average payment amount for payment type 5
 -- TODO: Student Answer Here - Hint: It's in the Payment table....
+SELECT  AVG(Amount) AS 'Average Payment'
+FROM    Payment AS P
+WHERE   P.PaymentTypeID = 5
 
 
 -- Given that there are some other aggregate methods like MAX(columnName) and MIN(columnName), complete the following two questions:
 --6. Select the highest payment amount
 -- TODO: Student Answer Here
+SELECT  MAX(Amount) AS 'Highest Payment'
+FROM    Payment
 
 
 --7.	 Select the lowest payment amount
 -- TODO: Student Answer Here
+SELECT  MIN(Amount) AS 'Lowest Payment'
+FROM    Payment
 
 
 --8. Select the total of all the payments that have been made
 -- TODO: Student Answer Here
+SELECT  SUM(Amount) AS 'Total Payments'
+FROM    Payment
 
 
 --9. How many different payment types does the school accept?
@@ -45,10 +70,15 @@
 SELECT PaymentTypeDescription
 FROM   PaymentType
 -- TODO: Student Answer Here
+SELECT  COUNT(1) -- or COUNT(PaymentTypeDescription)
+FROM    PaymentType
 
 
 --10. How many students are in club 'CSS'?
 -- TODO: Student Answer Here
+SELECT  COUNT(Activity.StudentId)
+FROM    Activity
+WHERE   ClubId = 'CSS'
 
 
 
@@ -64,7 +94,9 @@ GROUP BY StudentID
 
 -- 8. How many students are there in each club? Show the clubID and the count
 -- TODO: Student Answer Here....
-
+SELECT  ClubId, COUNT(StudentID) AS 'StudentCount'
+FROM    Activity
+GROUP BY ClubId
 
 -- Check your answer by manually grouping students by their club membership and counting them
 SELECT  ClubId, StudentID
@@ -72,22 +104,41 @@ FROM    Activity
 
 -- 9. Which clubs have 3 or more students in them?
 -- TODO: Student Answer Here....
+-- SELECT * FROM Activity
+SELECT  ClubID
+FROM    Activity
+GROUP BY ClubId
+HAVING  COUNT(StudentID) >= 3
 
 
 --10. Grouping the courses by the number of hours in each course, what is the average cost of those courses? Display the course hours and the average cost.
 -- TODO: Student Answer Here
+-- select * from course
+SELECT  CourseHours, AVG(CourseCost) AS 'AvgCost'
+FROM    Course
+GROUP BY CourseHours
 
 
 --11. Which teachers are getting the best results from the courses they teach? Display the staff ID and the average course mark, sorted by the course mark from highest to lowest.
 -- TODO: Student Answer Here
+SELECT  StaffID, AVG(Mark) AS 'AvgMark'
+FROM    Registration
+GROUP BY StaffID
+ORDER BY AVG(Mark) DESC
 
 
 --12. How many male and female students do we have?
 -- TODO: Student Answer Here
+SELECT Gender, COUNT(StudentID) AS 'Count'
+FROM   Student
+GROUP BY Gender
 
 
 --13. Show the average balance owing for male and female students.
 -- TODO: Student Answer Here
+SELECT Gender, AVG(BalanceOwing) AS 'AverageOwed'
+FROM   Student
+GROUP BY Gender
 
 
 --14. How many students participate in school clubs? Display the club id and the number of students. (Hint: You should be using the Activity table for this question.)
@@ -99,27 +150,65 @@ FROM    Activity
    ------------------------------- */
 --5.	Select the Student full name, course names and marks for studentID 199899200.
 -- TODO: Student Answer Here...
+SELECT  FirstName + ' ' + LastName AS 'Student',
+        CourseName,
+        Mark
+FROM    Student AS S
+    INNER JOIN Registration AS R ON R.StudentID = S.StudentID
+    INNER JOIN Course AS C ON C.CourseId = R.CourseId
+WHERE   S.StudentID = '199899200'
 
 
 --6.	Select the CourseID, CourseNames, and the Semesters they have been taught in
 -- TODO: Student Answer Here...
+SELECT  DISTINCT C.CourseId, C.CourseName, R.Semester
+FROM    Course AS C
+    INNER JOIN Registration AS R ON C.CourseId = R.CourseId
 
 
 --7.	What Staff Full Names have taught Networking 1?
 -- TODO: Student Answer Here...
-
+SELECT  FirstName + ' ' + LastName AS 'Staff Name'
+FROM    Staff AS S
+    INNER JOIN Registration AS R ON S.StaffID = R.StaffID
+    INNER JOIN Course AS C ON R.CourseId = C.CourseId
+WHERE   CourseName = 'Networking 1'
 
 --8.	What is the course list for student ID 199912010 in semester 2001S. Select the Students Full Name and the CourseNames
 -- TODO: Student Answer Here...
-
+SELECT  FirstName + ' ' + LastName AS 'Student',
+        CourseName
+--        , S.StudentID -- Used for WHERE clause
+--        , R.Semester  -- Used for WHERE clause
+FROM    Student AS S
+    INNER JOIN Registration AS R ON S.StudentID = R.StudentID
+    INNER JOIN Course AS C       ON R.CourseId = C.CourseId
+WHERE   S.StudentID = 199912010
+  AND   R.Semester = '2001S'
 
 --9. What are the Student Names, courseID's with individual Marks at 80% or higher? Sort the results by course.
 -- TODO: Student Answer Here...
-
+SELECT  FirstName + ' ' + LastName AS 'Student',
+        CourseId
+--        , S.StudentID -- Used for WHERE clause
+--        , R.Semester  -- Used for WHERE clause
+FROM    Student AS S
+    INNER JOIN Registration AS R ON S.StudentID = R.StudentID
+WHERE   R.Mark >= 80
+ORDER BY CourseId
 
 --10. Modify the script from the previous question to show the Course Name along with the ID.
 -- TODO: Student Answer Here...
-
+SELECT  FirstName + ' ' + LastName AS 'Student',
+        R.CourseId,
+        CourseName
+--        , S.StudentID -- Used for WHERE clause
+--        , R.Semester  -- Used for WHERE clause
+FROM    Student AS S
+    INNER JOIN Registration AS R ON S.StudentID = R.StudentID
+    INNER JOIN Course AS C ON R.CourseId = C.CourseId
+WHERE   R.Mark >= 80
+ORDER BY R.CourseId
 
 
 /* ===============================
