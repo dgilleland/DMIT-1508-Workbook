@@ -1,6 +1,8 @@
 --Joins Exercise 1
 USE [A0X-School]
 GO
+SELECT DB_NAME()
+GO
 
 --1.	Select Student full names and the course ID's they are registered in.
 SELECT  FirstName + ' ' + LastName AS 'Full Name',
