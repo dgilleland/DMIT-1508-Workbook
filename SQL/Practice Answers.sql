@@ -229,6 +229,9 @@ ORDER BY R.CourseId
 -- 9. Select the First Names of students whose first names are 3 characters long.
 -- TODO: Student Answer Here...
 
+-- 10. Select the staff names and the name of the month they were hired
+--     and order the results by the month number.
+-- TODO: Student Answer Here...
 
 
 /* ===============================
