@@ -21,6 +21,11 @@
       "title": "Learn Markdown"
     },
     {
+      "file": "Docs/ReadMe.md",
+      "description": "There is a Docs folder with some preliminary notes that you should review early in the course.",
+      "line": 3
+    },
+    {
       "file": "README.md",
       "description": "Pay special attention to this warning!",
       "line": 9,
