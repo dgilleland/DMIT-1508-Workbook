@@ -2,6 +2,8 @@
 
 USE [A0X-School]
 GO
+SELECT DB_NAME()
+GO
 
 /* SELECT Statement in SQL
 
