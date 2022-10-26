@@ -157,7 +157,8 @@ WHERE   Mark IS NOT NULL
 -- TODO: Student Answer Here...
 
 
--- 7. Select the characters in the position description from characters 8 to 13 for PositionID 5
+-- 7. Select the characters in the position description from characters 8 to 12
+--    (five characters worth) for PositionID 5
 -- TODO: Student Answer Here...
 
 
