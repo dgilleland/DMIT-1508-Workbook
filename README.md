@@ -1,8 +1,10 @@
-# DMIT-1508 - **Student Workbook** (Sep 2022)
+# DMIT-1508 - **Student Workbook** (Sep 2023)
 
 > **STUDENT_NAME** - Place your name in this line.
 
 ## Inside this repository
+
+> ***NOTE:** To begin using this repository locally on your computer, you should first install **git** and **Visual Studio Code**. See the [Software Resources](#software-and-resources) section of this page.*
 
 This repository is your **Student Workbook** (:notebook:) for participating in the in-class demos and for completing practice homework.
 
@@ -28,7 +30,7 @@ The general topics in this workbook include
 
 Recommended tools for this course include:
 
-- [SQL Server 2019](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) or higher, **Developer Edition**
+- [SQL Server 2022](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) or higher, **Developer Edition**
   - If you are installing SQL Server on a Mac, follow the instructions in this article:
     - [How to Install SQL Server on a Mac](https://database.guide/how-to-install-sql-server-on-a-mac/)
   - You might also find this video useful:
