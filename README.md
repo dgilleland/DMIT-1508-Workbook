@@ -47,3 +47,4 @@ Recommended tools for this course include:
 Other recommended resources include:
 
 - [Learn Markdown](https://commonmark.org/help/)
+- [**Learn SQL** (free for students)](https://learnsql.com/for-students#for-students)
