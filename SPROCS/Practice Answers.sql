@@ -21,8 +21,7 @@ GO
 
 -- 5. Create a stored procedure that will remove a student from a club. Call it RemoveFromClub.
 -- TODO: Student Answer Here
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'RemoveFromClub')
-    DROP PROCEDURE RemoveFromClub
+DROP PROCEDURE IF EXISTS RemoveFromClub
 GO
 CREATE PROCEDURE RemoveFromClub
     @StudentId      int
@@ -39,8 +38,7 @@ GO
 -- 6. Create a stored procedure that will display all the staff and their position in the school.
 --    Show the full name of the staff member and the description of their position.
 -- TODO: Student Answer Here
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'ListStaff')
-    DROP PROCEDURE ListStaff
+DROP PROCEDURE IF EXISTS ListStaff
 GO
 CREATE PROCEDURE ListStaff
 AS
@@ -53,8 +51,7 @@ GO
 -- 7. Display all the final course marks for a given student. Include the name and number of the course
 --    along with the student's mark.
 -- TODO: Student Answer Here
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'GetStudentMarks')
-    DROP PROCEDURE GetStudentMarks
+DROP PROCEDURE IF EXISTS GetStudentMarks
 GO
 CREATE PROCEDURE GetStudentMarks
     @StudentId      int
@@ -72,8 +69,7 @@ GO
 -- 8. Display the students that are enrolled in a given course on a given semester.
 --    Display the course name and the student's full name and mark.
 -- TODO: Student Answer Here
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'SprocName')
-    DROP PROCEDURE SprocName
+DROP PROCEDURE IF EXISTS SprocName
 GO
 CREATE PROCEDURE SprocName
     @CourseNumber   char(7),
@@ -97,8 +93,7 @@ GO
 
 -- 9. The school is running out of money! Find out who still owes money for the courses they are enrolled in.
 -- TODO: Student Answer Here
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'ListOutstandingBalances')
-    DROP PROCEDURE ListOutstandingBalances
+DROP PROCEDURE IF EXISTS ListOutstandingBalances
 GO
 CREATE PROCEDURE ListOutstandingBalances
 AS
@@ -118,8 +113,7 @@ GO
 --      one for the upper value and one for the lower value.
 --      Call the stored procedure ListStudentMarksByRange
 GO
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'ListStudentMarksByRange')
-    DROP PROCEDURE ListStudentMarksByRange
+DROP PROCEDURE IF EXISTS ListStudentMarksByRange
 GO
 CREATE PROCEDURE ListStudentMarksByRange
     @lower  decimal,
@@ -167,8 +161,7 @@ GO
 
 -- 2.   Selects the Staff full names and the Course ID's they teach.
 --      Place this in a stored procedure called ListCourseInstructors.
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'ListCourseInstructors')
-    DROP PROCEDURE ListCourseInstructors
+DROP PROCEDURE IF EXISTS ListCourseInstructors
 GO
 CREATE PROCEDURE ListCourseInstructors
 AS
@@ -191,8 +184,7 @@ GO
 --      The parameter should be called @PartialName.
 --      Do NOT assume that the '%' is part of the value in the parameter variable;
 --      Your solution should concatenate the @PartialName with the wildcard.
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'FindStudentByLastName')
-    DROP PROCEDURE FindStudentByLastName
+DROP PROCEDURE IF EXISTS FindStudentByLastName
 GO
 CREATE PROCEDURE FindStudentByLastName
     @PartialName    varchar(35)
@@ -210,8 +202,7 @@ GO
 --      Place this in a stored procedure called FindCourse.
 --      The parameter should be called @PartialName.
 --      Do NOT assume that the '%' is part of the value in the parameter variable.
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'FindCourse')
-    DROP PROCEDURE FindCourse
+DROP PROCEDURE IF EXISTS FindCourse
 GO
 CREATE PROCEDURE FindCourse
     @PartialName    varchar(40)
@@ -227,8 +218,7 @@ GO
 
 -- 5.   Selects the Payment Type Description(s) that have the highest number of Payments made.
 --      Place this in a stored procedure called MostFrequentPaymentTypes.
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'MostFrequentPaymentTypes')
-    DROP PROCEDURE MostFrequentPaymentTypes
+DROP PROCEDURE IF EXISTS MostFrequentPaymentTypes
 GO
 CREATE PROCEDURE MostFrequentPaymentTypes
 AS
@@ -247,8 +237,7 @@ GO
 
 -- 6.   Selects the current staff members that are in a particular job position.
 --      Place this in a stored procedure called StaffByPosition
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'StaffByPosition')
-    DROP PROCEDURE StaffByPosition
+DROP PROCEDURE IF EXISTS StaffByPosition
 GO
 CREATE PROCEDURE StaffByPosition
     @Description    varchar(50)
@@ -266,8 +255,7 @@ GO
 -- 7.   Selects the staff members that have taught a particular course (e.g.: 'DMIT101').
 --      This select should also accommodate inputs with wildcards. (Change = to LIKE)
 --      Place this in a stored procedure called StaffByCourseExperience
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'SprocName')
-    DROP PROCEDURE SprocName
+DROP PROCEDURE IF EXISTS SprocName
 GO
 CREATE PROCEDURE SprocName
     @CourseId   varchar(7)
@@ -288,8 +276,7 @@ GO
 -- 4) Create a stored procedure called OverActiveMembers that takes a single number: ClubCount. This procedure should return the names of all members that are active in as many or more clubs than the supplied club count.
 --    (p.s. - You might want to make sure to add more members to more clubs, seeing as tests for the last question might remove a lot of club members....)
 -- TODO: Student Answer Here
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'OverActiveMembers')
-    DROP PROCEDURE OverActiveMembers
+DROP PROCEDURE IF EXISTS OverActiveMembers
 GO
 CREATE PROCEDURE OverActiveMembers
     @ClubCount  int
@@ -315,8 +302,7 @@ GO
 
 -- 5) Create a stored procedure called ListStudentsWithoutClubs that lists the full names of all students who are not active in a club.
 -- TODO: Student Answer Here
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'ListStudentsWithoutClubs')
-    DROP PROCEDURE ListStudentsWithoutClubs
+DROP PROCEDURE IF EXISTS ListStudentsWithoutClubs
 GO
 CREATE PROCEDURE ListStudentsWithoutClubs
 AS
@@ -330,8 +316,7 @@ GO
 
 -- 6) Create a stored procedure called LookupStudent that accepts a partial student last name and returns a list of all students whose last name includes the partial last name. Return the student first and last name as well as their ID.
 -- TODO: Student Answer Here
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'LookupStudent')
-    DROP PROCEDURE LookupStudent
+DROP PROCEDURE IF EXISTS LookupStudent
 GO
 CREATE PROCEDURE LookupStudent
     @PartialLastName    varchar(35)
@@ -356,8 +341,7 @@ GO
 -- 2. Create a stored procedure called DissolveClub that will accept a club id as its parameter. Ensure that the club exists before attempting to dissolve the club. You are to dissolve the club by first removing all the members of the club and then removing the club itself.
 --    - Delete of rows in the Activity table
 --    - Delete of rows in the Club table
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'DissolveClub')
-    DROP PROCEDURE DissolveClub
+DROP PROCEDURE IF EXISTS DissolveClub
 GO
 CREATE PROCEDURE DissolveClub
     -- Parameters here
@@ -416,9 +400,8 @@ EXEC DissolveClub 'WHA?'
 GO
 
 -- 9. Create a stored procedure called ArchivePayments. This stored procedure must transfer all payment records to the StudentPaymentArchive table. After archiving, delete the payment records.
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'StudentPaymentArchive')
-    DROP TABLE StudentPaymentArchive
-
+DROP TABLE IF EXISTS StudentPaymentArchive
+GO
 CREATE TABLE StudentPaymentArchive
 (
     ArchiveId       int
@@ -435,8 +418,7 @@ CREATE TABLE StudentPaymentArchive
 )
 GO
 
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'ArchivePayments')
-    DROP PROCEDURE ArchivePayments
+DROP PROCEDURE IF EXISTS ArchivePayments
 GO
 
 CREATE PROCEDURE ArchivePayments
@@ -469,9 +451,8 @@ RETURN
 GO
 
 -- 10. In response to recommendations in our business practices, we are required to create an audit record of all changes to the Payment table. As such, all updates and deletes from the payment table will have to be performed through stored procedures rather than direct table access. For these stored procedures, you will need to use the following PaymentHistory table.
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'PaymentHistory')
-    DROP TABLE PaymentHistory
-
+DROP TABLE IF EXISTS PaymentHistory
+GO
 CREATE TABLE PaymentHistory
 (
     AuditID         int
@@ -491,8 +472,7 @@ CREATE TABLE PaymentHistory
 GO
 
 -- 10.a. Create a stored procedure called UpdatePayment that has a parameter to match each column in the Payment table. This stored procedure must first record the specified payment's data in the PaymentHistory before applying the update to the Payment table itself.
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'UpdatePayment')
-    DROP PROCEDURE UpdatePayment
+DROP PROCEDURE IF EXISTS UpdatePayment
 GO
 
 CREATE PROCEDURE UpdatePayment
@@ -541,8 +521,7 @@ RETURN
 GO
 
 -- 10.b. Create a stored procedure called DeletePayment that has a parameter identifying the payment ID and the student ID. This stored procedure must first record the specified payment's data in the PaymentHistory before removing the payment from the Payment table.
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'DeletePayment')
-    DROP PROCEDURE DeletePayment
+DROP PROCEDURE IF EXISTS DeletePayment
 GO
 
 CREATE PROCEDURE DeletePayment

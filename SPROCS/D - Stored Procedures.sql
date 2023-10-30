@@ -18,8 +18,8 @@ GO
 */
 
 -- 1. Create a stored procedure called AddPosition that will accept a Position Description (varchar 50). Return the primary key value that was database-generated as a result of your Insert statement. Also, ensure that the supplied description is not NULL and that it is at least 5 characters long. Make sure that you do not allow a duplicate position name.
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'AddPosition')
-    DROP PROCEDURE AddPosition
+GO
+DROP PROCEDURE IF EXISTS AddPosition
 GO
 CREATE PROCEDURE AddPosition
     -- Parameters here
@@ -112,8 +112,8 @@ SELECT * FROM Position
 -- DELETE FROM Position WHERE PositionID = 12
 
 -- 2) Create a stored procedure called LookupClubMembers that takes a club ID and returns the full names of all members in the club.
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'LookupClubMembers')
-    DROP PROCEDURE LookupClubMembers
+GO
+DROP PROCEDURE IF EXISTS LookupClubMembers
 GO
 CREATE PROCEDURE LookupClubMembers
     -- Parameters here
@@ -142,8 +142,8 @@ EXEC LookupClubMembers 'NASA1'
 EXEC LookupClubMembers NULL
 
 -- 3) Create a stored procedure called RemoveClubMembership that takes a club ID and deletes all the members of that club. Be sure that the club exists. Also, raise an error if there were no members deleted from the club.
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'RemoveClubMembership')
-    DROP PROCEDURE RemoveClubMembership
+GO
+DROP PROCEDURE IF EXISTS RemoveClubMembership
 GO
 CREATE PROCEDURE RemoveClubMembership
     -- Parameters here

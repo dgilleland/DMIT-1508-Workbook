@@ -5,8 +5,8 @@ USE [A0X-School]
 GO
 
 /*
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'SprocName')
-    DROP PROCEDURE SprocName
+GO
+DROP PROCEDURE IF EXISTS SprocName
 GO
 CREATE PROCEDURE SprocName
     -- Parameters here
@@ -18,8 +18,8 @@ GO
 
 
 -- 1. Add a stored procedure called TransferCourse that accepts a student ID, semester, and two course IDs: the one to move the student out of and the one to move the student in to.
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'TransferCourse')
-    DROP PROCEDURE TransferCourse
+GO
+DROP PROCEDURE IF EXISTS TransferCourse
 GO
 CREATE PROCEDURE TransferCourse
     -- Parameters here
@@ -86,8 +86,8 @@ GO
 
 
 -- 3. Add a stored procedure called AdjustMarks that takes in a course ID. The procedure should adjust the marks of all students for that course by increasing the mark by 10%. Be sure that nobody gets a mark over 100%.
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'AdjustMarks')
-    DROP PROCEDURE AdjustMarks
+GO
+DROP PROCEDURE IF EXISTS AdjustMarks
 GO
 CREATE PROCEDURE AdjustMarks
     -- Parameters here
@@ -142,8 +142,8 @@ RETURN
 GO
 
 -- 4. Create a stored procedure called RegisterStudent that accepts StudentID, CourseID and Semester as parameters. If the number of students in that course and semester are not greater than the Max Students for that course, add a record to the Registration table and add the cost of the course to the students balance. If the registration would cause the course in that semester to have greater than MaxStudents for that course raise an error.
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'RegisterStudent')
-    DROP PROCEDURE RegisterStudent
+GO
+DROP PROCEDURE IF EXISTS RegisterStudent
 GO
 
 CREATE PROCEDURE RegisterStudent
@@ -207,8 +207,8 @@ RETURN
 GO
 
 -- 5. Add a stored procedure called WitnessProtection that erases all existence of a student from the database. The stored procedure takes the StudentID, first and last names, gender, and birthdate as parameters. Ensure that the student exists in the database before removing them (all the parameter values must match).
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'WitnessProtection')
-    DROP PROCEDURE WitnessProtection
+GO
+DROP PROCEDURE IF EXISTS WitnessProtection
 GO
 
 CREATE PROCEDURE WitnessProtection
@@ -283,8 +283,8 @@ RETURN
 GO
 
 -- 6. Create a procedure called StudentPayment that accepts Student ID and paymentamount as parameters. Add the payment to the payment table and adjust the students balance owing to reflect the payment.
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'StudentPayment')
-    DROP PROCEDURE StudentPayment
+GO
+DROP PROCEDURE IF EXISTS StudentPayment
 GO
 
 CREATE PROCEDURE StudentPayment
@@ -327,8 +327,8 @@ RETURN
 GO
 
 -- 7. Create a stored procedure called WithdrawStudent that accepts a StudentID, CourseId, and semester as parameters. Withdraw the student by updating their Withdrawn value to 'Y' and subtract 1/2 of the cost of the course from their balance. If the result would be a negative balance set it to 0.
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'WithdrawStudent')
-    DROP PROCEDURE WithdrawStudent
+GO
+DROP PROCEDURE IF EXISTS WithdrawStudent
 GO
 
 CREATE PROCEDURE WithdrawStudent
@@ -409,9 +409,9 @@ RETURN
 GO
 
 -- 8. Create a stored procedure called ArchiveStudentGrades that will accept a year and will archive all grade records from that year from the grade table to an ArchiveGrade table. Copy all the appropriate records from the grade table to the ArchiveGrade table and delete them from the grade table. The ArchiveGrade table will have the same definition as the grade table but will not have any constraints.
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'ArchiveGrade')
-    DROP TABLE ArchiveGrade
-
+GO
+DROP TABLE IF EXISTS ArchiveGrade
+GO
 CREATE TABLE ArchiveGrade
 (
     StudentID        int,
@@ -423,8 +423,7 @@ CREATE TABLE ArchiveGrade
 )
 GO
 
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'ArchiveStudentGrades')
-    DROP PROCEDURE ArchiveStudentGrades
+DROP PROCEDURE IF EXISTS ArchiveStudentGrades
 GO
 
 CREATE PROCEDURE ArchiveStudentGrades
@@ -464,8 +463,8 @@ RETURN
 GO
 
 -- 9. Create a stored procedure called ArchivePayments. This stored procedure must transfer all payment records to the StudentPaymentArchive table. After archiving, delete the payment records.
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'StudentPaymentArchive')
-    DROP TABLE StudentPaymentArchive
+DROP TABLE IF EXISTS StudentPaymentArchive
+GO
 
 CREATE TABLE StudentPaymentArchive
 (
