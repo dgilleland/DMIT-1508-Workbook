@@ -43,8 +43,7 @@ WHERE  StudentID = 199912010
 -- Updating Multiple Columns in One Statement
 -- Consider the following new table with data
 GO
-IF EXISTS(SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N'Rectangle')
-    DROP TABLE Rectangle
+DROP TABLE IF EXISTS Rectangle
 GO
 CREATE TABLE Rectangle
 (
@@ -149,10 +148,8 @@ WHERE  CourseId = 'DMIT152'
  */
 /* The following statements expect the presence of a view called StudentGrades.*/
 GO
-IF OBJECT_ID('StudentGrades', 'V') IS NOT NULL
-    DROP VIEW StudentGrades
+DROP VIEW IF EXISTS StudentGrades
 GO
-
 CREATE VIEW StudentGrades
 AS
     SELECT  S.StudentID,

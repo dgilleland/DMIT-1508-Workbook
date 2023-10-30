@@ -10,8 +10,8 @@ GO
 -- Rather, the View "extracts" data from the tables by using a SELECT statement under the hood.
 
 --1.  Create a view of staff full names called StaffList.
-IF OBJECT_ID('StaffList', 'V') IS NOT NULL
-    DROP VIEW StaffList
+GO
+DROP VIEW IF EXISTS StaffList
 GO
 CREATE VIEW StaffList
 AS
@@ -26,8 +26,7 @@ FROM    StaffList
 -- SP_HELP StaffList        -- Gets schema info on the View
 GO
 --2.  Create a view of staff ID's, full names, positionID's and datehired called StaffConfidential.
-IF OBJECT_ID('StaffConfidential', 'V') IS NOT NULL
-    DROP VIEW StaffConfidential
+DROP VIEW IF EXISTS StaffConfidential
 GO
 CREATE VIEW StaffConfidential
 AS
@@ -57,8 +56,7 @@ FROM    StaffConfidential
 GO
 
 --3.  Create a view called StaffExperience that returns the name of the staff members that have taught courses and the names of the courses they have taught. Sort the results by staff last name then first name, then course name.
-IF OBJECT_ID('StaffExperienceRaw', 'V') IS NOT NULL
-    DROP VIEW StaffExperienceRaw
+DROP VIEW IF EXISTS StaffExperienceRaw
 GO
 CREATE VIEW StaffExperienceRaw
 AS
@@ -74,8 +72,8 @@ AS
         -- "The OFFSET is the number of rows to skip before including them in the result."
         OFFSET 0 ROWS
 GO
-IF OBJECT_ID('StaffExperience', 'V') IS NOT NULL
-    DROP VIEW StaffExperience
+
+DROP VIEW IF EXISTS StaffExperience
 GO
 CREATE VIEW StaffExperience
 AS
@@ -85,7 +83,7 @@ AS
 GO
 
 SELECT StaffName, CourseName FROM StaffExperience
-
+GO
 --4.  Create a view called StudentGrades that retrieves the student ID's, full names, courseId's, course names, and marks for each student.
 -- TODO: Student Answer here
 
