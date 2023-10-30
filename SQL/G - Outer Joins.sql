@@ -1,6 +1,8 @@
 --Outer Joins Exercise
 USE [A0X-School]
 GO
+SELECT DB_NAME() AS 'Active Database'
+GO
 
 --1. Select All position descriptions and the staff ID's that are in those positions
 SELECT  PositionDescription, StaffID

@@ -1,7 +1,7 @@
 /* School database - DMIT-1508-A01, Jan 2017 
    Table Creation and Load Data Script 
    **************************************** */
-SELECT DB_NAME()
+SELECT DB_NAME() AS 'Active Database'
 GO
 IF NOT EXISTS (SELECT name FROM master.sys.databases WHERE name = N'A0X-School')
 BEGIN
@@ -11,8 +11,9 @@ GO
 
 USE [A0X-School]
 GO
-SELECT DB_NAME()
+SELECT DB_NAME() AS 'Active Database'
 GO
+
 
 DROP TABLE IF EXISTS Payment
 DROP TABLE IF EXISTS PaymentType

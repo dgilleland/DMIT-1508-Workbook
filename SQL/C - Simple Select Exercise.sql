@@ -4,8 +4,9 @@
 -- It also demonstrates the HAVING clause to filter on aggregate values.
 USE [A0X-School]
 GO
-SELECT DB_NAME()
+SELECT DB_NAME() AS 'Active Database'
 GO
+
 
 
 -- 1. Select the average mark for each course. Display the CourseID and the average mark

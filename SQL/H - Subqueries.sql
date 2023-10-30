@@ -3,6 +3,8 @@
 --**If the questions could also be solved without a subquery, solve it without one as well**
 USE [A0X-School]
 GO
+SELECT DB_NAME() AS 'Active Database'
+GO
 
 -- A Subquery is a query within a query. The inner-most query is called the subquery.
 -- A subquery can appear in almost all clauses of the SELECT statement. For our purposes here,

@@ -1,6 +1,8 @@
 --Union Exercise (using the IQSchool database)
 USE [A0X-School]
 GO
+SELECT DB_NAME() AS 'Active Database'
+GO
 
 -- Imagine we want all the names of the people at the school: Staff and Students
 SELECT  FirstName, LastName

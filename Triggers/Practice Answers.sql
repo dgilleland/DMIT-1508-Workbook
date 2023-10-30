@@ -1,5 +1,9 @@
 /* Answers to Practice Triggers Questions
  *************************************************/
+USE [A0X-School]
+GO
+SELECT DB_NAME() AS 'Active Database'
+GO
 
 /* ===============================
    |  A - Triggers.sql           |
@@ -8,8 +12,8 @@
 SELECT * FROM Student WHERE BalanceOwing > 0
 
 -- 5. The school has placed a temporary hold on the creation of any more clubs. (Existing clubs can be renamed or removed, but no additional clubs can be created.) Put a trigger on the Clubs table to prevent any new clubs from being created.
-IF EXISTS (SELECT * FROM sys.triggers WHERE object_id = OBJECT_ID(N'[dbo].[Club_Insert_Lockdown]'))
-    DROP TRIGGER Club_Insert_Lockdown
+GO
+DROP TRIGGER IF EXISTS Club_Insert_Lockdown
 GO
 
 CREATE TRIGGER Club_Insert_Lockdown
@@ -28,8 +32,8 @@ INSERT INTO Club(ClubId, ClubName) VALUES ('HACK', 'Honest Analyst Computer Know
 GO
 
 -- 8. The Registration table has a composite primary key. In order to ensure that parts of this key cannot be changed, write a trigger called Registration_ProtectPrimaryKey that will prevent changes to the primary key columns.
-IF EXISTS (SELECT * FROM sys.triggers WHERE object_id = OBJECT_ID(N'[dbo].[Registration_ProtectPrimaryKey]'))
-    DROP TRIGGER Registration_ProtectPrimaryKey
+GO
+DROP TRIGGER IF EXISTS Registration_ProtectPrimaryKey
 GO
 
 CREATE TRIGGER Registration_ProtectPrimaryKey
@@ -45,8 +49,7 @@ RETURN
 GO
 
 -- 9. Create a trigger to ensure that an instructor does not teach more than 3 courses in a given semester.
-IF EXISTS (SELECT * FROM sys.triggers WHERE object_id = OBJECT_ID(N'[dbo].[Registration_InstructorLoad]'))
-    DROP TRIGGER Registration_InstructorLoad
+DROP TRIGGER IF EXISTS Registration_InstructorLoad
 GO
 
 CREATE TRIGGER Registration_InstructorLoad
@@ -69,8 +72,7 @@ RETURN
 GO
 
 -- 10. Create a trigger to ensure that students cannot be added to a course if the course is already full.
-IF EXISTS (SELECT * FROM sys.triggers WHERE object_id = OBJECT_ID(N'[dbo].[Registration_ClassSizeLimit]'))
-    DROP TRIGGER Registration_ClassSizeLimit
+DROP TRIGGER IF EXISTS Registration_ClassSizeLimit
 GO
 
 CREATE TRIGGER Registration_ClassSizeLimit
@@ -96,8 +98,7 @@ GO
 
 -- 11. Change the Registration_ClassSizeLimit trigger so students will be added to a wait list if the course is already full; make sure the student is not added to Registration, and include a message that the student has been added to a waitlist. You should design a WaitList table to accommodate the changes needed for adding a student to the course once space is freed up for the course. Students should be added on a first-come-first-served basis (i.e. - include a timestamp in your WaitList table)
 -- Step 1) Make the WaitList table
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'WaitList')
-    DROP TABLE WaitList
+DROP TABLE IF EXISTS WaitList
 GO
 CREATE TABLE WaitList
 (

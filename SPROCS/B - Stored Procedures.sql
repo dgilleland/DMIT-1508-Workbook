@@ -10,6 +10,8 @@ The implication of this is that since our SQL code in our sproc will continue to
 
 USE [A0X-School]
 GO
+SELECT DB_NAME() AS 'Active Database'
+GO
 
 /* ********* SPROC Template ************
 GO

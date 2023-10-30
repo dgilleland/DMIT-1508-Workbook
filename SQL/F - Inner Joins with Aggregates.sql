@@ -1,6 +1,8 @@
 --Inner Joins With Aggregates Exercises
 USE [A0X-School]
 GO
+SELECT DB_NAME() AS 'Active Database'
+GO
 
 --1. How many staff are there in each position? Select the number and Position Description
 SELECT  PositionDescription,                    --  <-- non-aggregate

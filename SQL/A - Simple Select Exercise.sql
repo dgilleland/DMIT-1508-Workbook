@@ -2,8 +2,9 @@
 
 USE [A0X-School]
 GO
-SELECT DB_NAME()
+SELECT DB_NAME() AS 'Active Database'
 GO
+
 
 /* SELECT Statement in SQL
 

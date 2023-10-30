@@ -3,6 +3,8 @@
 
 USE [A0X-School]
 GO
+SELECT DB_NAME() AS 'Active Database'
+GO
 
 -- Take the following queries and turn them into stored procedures.
 

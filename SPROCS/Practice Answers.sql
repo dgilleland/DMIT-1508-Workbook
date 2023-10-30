@@ -1,5 +1,9 @@
 /* Answers to Practice Stored Procedures Questions
  *************************************************/
+USE [A0X-School]
+GO
+SELECT DB_NAME() AS 'Active Database'
+GO
 
 /* ===============================
    |  A - Stored Procedures.sql  |

@@ -1,6 +1,8 @@
 --View Exercise
 USE [A0X-School]
 GO
+SELECT DB_NAME() AS 'Active Database'
+GO
 
 -- Database tables are all about storing information.
 -- SELECT statements are all about retrieving information from our database.

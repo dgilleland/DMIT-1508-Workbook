@@ -4,10 +4,12 @@
 --  https://code.msdn.microsoft.com/Global-Variables-in-SQL-749688ef
 USE [A0X-School]
 GO
+SELECT DB_NAME() AS 'Active Database'
+GO
 
 /*
-IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_TYPE = N'PROCEDURE' AND ROUTINE_NAME = 'SprocName')
-    DROP PROCEDURE SprocName
+GO
+DROP PROCEDURE IF EXISTS SprocName
 GO
 CREATE PROCEDURE SprocName
     -- Parameters here

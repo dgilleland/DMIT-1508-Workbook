@@ -3,6 +3,8 @@
 
 USE [A0X-School]
 GO
+SELECT DB_NAME() AS 'Active Database'
+GO
 
 /* *******************************************
   Each Stored Procedure has to be the first statement in a batch,

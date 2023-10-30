@@ -1,6 +1,8 @@
 -- String and Date Functions Exercise
 USE [A0X-School]
 GO
+SELECT DB_NAME() AS 'Active Database'
+GO
 
 /* ************************************************
     String Functions

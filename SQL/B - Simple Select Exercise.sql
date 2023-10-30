@@ -4,8 +4,9 @@
 -- All aggregates are done using built-in functions in the database
 USE [A0X-School]
 GO
-SELECT DB_NAME()
+SELECT DB_NAME() AS 'Active Database'
 GO
+
 
 --1.	Select the average Mark from all the Marks in the registration table
 -- SELECT * FROM Registration - view raw data
