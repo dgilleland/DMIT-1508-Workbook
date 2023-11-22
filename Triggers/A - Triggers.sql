@@ -184,7 +184,7 @@ AS
                       -- then I could isolate my IF check by adding the following:
                       --   AND (Update(StudentID) OR Update(ClubId))
     BEGIN
-        RAISERROR('Modifications to the composite primary key of Registration are not allowed', 16, 1)
+        RAISERROR('Modifications to the composite primary key of Activity are not allowed', 16, 1)
         ROLLBACK TRANSACTION
     END
 RETURN
