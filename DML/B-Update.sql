@@ -168,11 +168,34 @@ UPDATE  StudentGrades
 SET     CourseName = 'basket weaving 101'
 WHERE   CourseName = 'Capstone Project'
 
+/* 
+    Sometimes, we need to update columns in a certain table
+    based on information in another related table.
+    There are a few ways to do this, but one of the
+    easier ways is through the use of subqueries.
+    The following is an example of how to do this.
+--  NOTE: First of all, this next problem is presuming
+    that there is a column called "Rebate".
+    To add that column, execute the following ALTER TABLE statement.
+ALTER TABLE Student
+    ADD  Rebate  money  NULL
+ */
+--9. If a student has achieved high honours (80% or higher) on all courses, give them a $200 rebate.
+UPDATE Student
+    SET Rebate = 200
+WHERE  StudentID IN
+    (
+        SELECT StudentID
+        FROM   Registration
+        GROUP BY StudentID
+        HAVING  AVG(Mark) >= 80
+    )
+
 -- ======= Practice ========
---9.  Using the StudentGrades view, update the  mark for studentID 199899200 in course dmit152 to be 90.
+--10.  Using the StudentGrades view, update the  mark for studentID 199899200 in course dmit152 to be 90.
 -- TODO: Student Answer Here...
 
---10. Using the StudentGrades view, see if you can delete the same record from the previous question.
+--11. Using the StudentGrades view, see if you can delete the same record from the previous question.
 --    If it doesn't work, then copy the error message here.
 -- TODO: Student Answer Here...
 
