@@ -3,9 +3,7 @@ USE [A0X-School]
 GO
 SELECT DB_NAME() AS 'Active Database'
 GO
-
 /*
-GO
 DROP TRIGGER IF EXISTS Table_TriggerType
 GO
 
@@ -18,7 +16,6 @@ RETURN
 GO
 */
 -- Making a diagnostic trigger for the first example
-GO
 DROP TRIGGER IF EXISTS Activity_DML_Diagnostic
 GO
 
@@ -26,7 +23,7 @@ CREATE TRIGGER Activity_DML_Diagnostic
 ON Activity -- Part of the Activity table
 FOR Insert, Update, Delete -- Show diagnostics of the Activity/inserted/deleted tables
 AS
-    -- Body of Trigger
+    -- Body of Trigger - Echo back the trigger context
     SELECT 'Activity Table:', StudentID, ClubId FROM Activity ORDER BY StudentID
     SELECT 'Inserted Table:', StudentID, ClubId FROM inserted ORDER BY StudentID
     SELECT 'Deleted Table:', StudentID, ClubId FROM deleted ORDER BY StudentID
@@ -144,7 +141,7 @@ AS
        -- Our complex business logic involves a table OTHER THAN Registration
        -- We are effectively joining our inserted (Registration) table
        -- with the Student table to see the balance for the new students
-       EXISTS(SELECT S.StudentID FROM inserted AS I
+       EXISTS(SELECT S.StudentID FROM inserted AS I -- the new data in the Registration table
               INNER JOIN Student AS S ON I.StudentID = S.StudentID
               WHERE S.BalanceOwing > 5000)
     BEGIN
@@ -269,8 +266,10 @@ CREATE TRIGGER Student_Update_AuditBalanceOwing
 ON Student
 FOR UPDATE -- Inserting does not CHANGE, it CREATES data; Deleting does not CHANGE, it removes data
 AS
-	-- Body of Trigger
+    -- Body of Trigger
     IF @@ROWCOUNT > 0 AND UPDATE(BalanceOwing)
+    --                    \ Function         /
+    --                     \  Returns true if that column's data changed
 	BEGIN
 	    INSERT INTO BalanceOwingLog (StudentID, ChangedateTime, OldBalance, NewBalance)
 	    SELECT I.StudentID, GETDATE(), d.BalanceOwing, i.BalanceOwing
@@ -280,8 +279,8 @@ AS
 	    BEGIN
 		    RAISERROR('Insert into BalanceOwingLog Failed',16,1)
             ROLLBACK TRANSACTION
-		END	
-	END
+        END    
+    END
 RETURN
 GO
 

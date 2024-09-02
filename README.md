@@ -43,6 +43,7 @@ Recommended tools for this course include:
     - [Sql Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15#download-ssms) (*SSMS*)
     - [Azure Data Studio](https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio)
 - [**LucidChart**](https://www.lucidchart.com/pages/) or **Draw.io** ([VS Code Extension](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio) vs. [desktop](https://about.draw.io/integrations/#integrations_offline) vs. [online](https://draw.io) versions)
+  - LucidChart has a free version available for students and educators. Learn more and sign up [**here**](https://www.lucidchart.com/pages/usecase/education).
 
 Other recommended resources include:
 

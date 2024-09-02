@@ -10,9 +10,9 @@ GO
    ------------------------------- */
 -- 3.b. TODO: Write code to test this trigger by creating a stored procedure called RegisterStudent that puts a student in a course and then increases the balance owing by the cost of the course.
 SELECT * FROM Student WHERE BalanceOwing > 0
+GO
 
 -- 5. The school has placed a temporary hold on the creation of any more clubs. (Existing clubs can be renamed or removed, but no additional clubs can be created.) Put a trigger on the Clubs table to prevent any new clubs from being created.
-GO
 DROP TRIGGER IF EXISTS Club_Insert_Lockdown
 GO
 
@@ -20,7 +20,7 @@ CREATE TRIGGER Club_Insert_Lockdown
 ON Club
 FOR Insert -- Choose only the DML statement(s) that apply
 AS
-	-- Body of Trigger
+    -- Body of Trigger
     IF @@ROWCOUNT > 0
     BEGIN
         RAISERROR('Temporary lockdown on creating new clubs.', 16, 1)
@@ -32,7 +32,6 @@ INSERT INTO Club(ClubId, ClubName) VALUES ('HACK', 'Honest Analyst Computer Know
 GO
 
 -- 8. The Registration table has a composite primary key. In order to ensure that parts of this key cannot be changed, write a trigger called Registration_ProtectPrimaryKey that will prevent changes to the primary key columns.
-GO
 DROP TRIGGER IF EXISTS Registration_ProtectPrimaryKey
 GO
 
