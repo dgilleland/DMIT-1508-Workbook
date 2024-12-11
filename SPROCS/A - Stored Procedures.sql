@@ -33,7 +33,7 @@ CREATE PROCEDURE GetName
     -- Parameters here
 AS
     -- Body of procedure here
-    SELECT  'Dan', 'Gilleland'
+    SELECT  'Dan' AS 'FirstName', 'Gilleland' AS 'LastName'
     -- How would you change the line above to put column names on the result set?
 RETURN
 GO
@@ -131,7 +131,7 @@ AS
     WHERE  R.Semester = '2004S'
     GROUP BY C.CourseName
     HAVING AVG(R.Mark) > 80
-RETURN
+RETURN -- Exit running the stored procedure
 GO
 
 --3.B. Your instructor is back, and recommends that the previous stored procedure use a parameter for the semester, making it more "re-usable"

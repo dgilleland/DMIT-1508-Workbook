@@ -19,21 +19,24 @@ GO
 DROP TRIGGER IF EXISTS Activity_DML_Diagnostic
 GO
 
-CREATE TRIGGER Activity_DML_Diagnostic
+CREATE OR ALTER TRIGGER Activity_DML_Diagnostic
 ON Activity -- Part of the Activity table
 FOR Insert, Update, Delete -- Show diagnostics of the Activity/inserted/deleted tables
 AS
     -- Body of Trigger - Echo back the trigger context
-    SELECT 'Activity Table:', StudentID, ClubId FROM Activity ORDER BY StudentID
-    SELECT 'Inserted Table:', StudentID, ClubId FROM inserted ORDER BY StudentID
+    SELECT 'Activity Table:' AS 'Source Table', StudentID, ClubId FROM Activity -- ORDER BY StudentID
+    UNION
+    SELECT 'Inserted Table:', StudentID, ClubId FROM inserted -- ORDER BY StudentID
+    UNION
     SELECT 'Deleted Table:', StudentID, ClubId FROM deleted ORDER BY StudentID
 RETURN
 GO
 -- Demonstrate the diagnostic trigger
 SELECT * FROM Activity
 SELECT * FROM Club
+SELECT * FROM Student
 -- Note to self: make sure you have the CIPS club from the INSERT demo
-INSERT INTO Activity(StudentID, ClubId) VALUES (200494476, 'CIPS')
+INSERT INTO Activity(StudentID, ClubId) VALUES (200494476, 'CIPS') -- Joe Cool
 -- (note: generally, it's not a good idea to change a primary key, even part of one)
 UPDATE Activity SET ClubId = 'NASA1' WHERE StudentID = 200494476
 DELETE FROM Activity WHERE StudentID = 200494476
@@ -53,7 +56,8 @@ AS
        EXISTS (SELECT A.StudentID FROM Activity AS A
                -- The next line ensures we are only dealing with students
                -- affected by the INSERT/UPDATE
-               INNER JOIN inserted AS i ON A.StudentID = i.StudentID
+               INNER JOIN inserted AS i     -- This inserted table represents the new data
+                    ON A.StudentID = i.StudentID
                GROUP BY A.StudentID HAVING COUNT(A.StudentID) > 3)
     BEGIN
         -- State why I'm going to abort the changes
@@ -65,8 +69,8 @@ RETURN
 GO
 
 /*  The following will list all the triggers in my database
-SELECT  t.name AS TableName,
-        tr.name AS TriggerName  
+SELECT  t.name AS 'TableName',
+        tr.name AS 'TriggerName'
 FROM sys.triggers AS tr
     INNER JOIN sys.tables AS t
         ON t.object_id = tr.parent_id
@@ -186,6 +190,13 @@ AS
     END
 RETURN
 GO
+/* Test my trigger Activity_PreventUpdate
+    SELECT * FROM Activity ORDER BY ClubId
+    UPDATE  Activity
+    SET     ClubId = 'NASA1'
+    WHERE   ClubId = 'CHESS'
+      AND   StudentID = 200495500
+*/
 
 -- 5. The school has placed a temporary hold on the creation of any more clubs. (Existing clubs can be renamed or removed, but no additional clubs can be created.) Put a trigger on the Clubs table to prevent any new clubs from being created.
 -- TODO: Student Answer Here
@@ -212,8 +223,10 @@ AS
         -- has changed).
         DECLARE @LocalError bit = 0
 
-        IF UPDATE(StudentID) AND
-           NOT EXISTS (SELECT * FROM inserted AS I INNER JOIN Student AS S ON I.StudentID = S.StudentID)
+        -- If the data in the StudentID column is updated (changed)...
+        IF  UPDATE(StudentID) AND
+            -- and the corresponding StudentID doesn't exist in the Student table
+            NOT EXISTS (SELECT * FROM inserted AS I INNER JOIN Student AS S ON I.StudentID = S.StudentID)
         BEGIN
             RAISERROR('That is not a valid StudentID', 16, 1)
             SET @LocalError = 1
@@ -271,10 +284,17 @@ AS
     --                    \ Function         /
     --                     \  Returns true if that column's data changed
 	BEGIN
+        -- Log the changes into my auditing table
 	    INSERT INTO BalanceOwingLog (StudentID, ChangedateTime, OldBalance, NewBalance)
-	    SELECT I.StudentID, GETDATE(), d.BalanceOwing, i.BalanceOwing
+	    SELECT  I.StudentID,        -- ID of the student(s)
+                GETDATE(),          -- When this change is happening
+                d.BalanceOwing,     -- Old value for the balance
+                i.BalanceOwing      -- New value for the balance
         FROM deleted AS d 
-            INNER JOIN inserted AS i on d.StudentID = i.StudentID
+            INNER JOIN inserted AS i
+                ON d.StudentID = i.StudentID
+        
+        -- If I'm unable to log the information, then just do a rollback
 	    IF @@ERROR <> 0 
 	    BEGIN
 		    RAISERROR('Insert into BalanceOwingLog Failed',16,1)

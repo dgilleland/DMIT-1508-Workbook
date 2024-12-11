@@ -15,6 +15,8 @@
 
 ## Notes on Operators and Naming Standards
 
+You should also review the separate document on [Check Constraints](./CHECK-Constraints.md).
+
 ```sql
 -- Relational Operators
 -- > >= < <=

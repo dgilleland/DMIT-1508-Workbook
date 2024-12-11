@@ -1,5 +1,9 @@
 --  Stored Procedures (Sprocs)
 -- Demonstrate using Transactions in a Stored Procedure
+-- Transactions are used when we have two or more INSERT/UPDATE/DELETE
+-- statements that we want to accomplish. The idea is that all of
+-- the INSERT/UPDATE/DELETE statements must either fail or succeed
+-- as a group/set.
 
 USE [A0X-School]
 GO
@@ -20,15 +24,19 @@ GO
 
 
 -- 1. Add a stored procedure called TransferCourse that accepts a student ID, semester, and two course IDs: the one to move the student out of and the one to move the student in to.
+-- The three parts to transactions are a) BEGIN TRANSACTION, b) ROLLBACK TRANSACTION, and
+-- c) COMMIT TRANSACTION
+        -- Step 1) Withdraw the student from the first course
+            -- Step 2) Enroll the student in the second course
 GO
 DROP PROCEDURE IF EXISTS TransferCourse
 GO
 CREATE PROCEDURE TransferCourse
     -- Parameters here
-    @StudentID      int,
-    @Semester       char(5),
-    @LeaveCourseID  char(7),
-    @EnterCourseID  char(7)
+    @StudentID      int,        -- Who we are transferring
+    @Semester       char(5),    -- in Which semester
+    @LeaveCourseID  char(7),    -- Course to remove from
+    @EnterCourseID  char(7)     -- Course to add the student to
 AS
     -- Body of procedure here
     -- Basic Validation - Parameter values are required
@@ -38,10 +46,9 @@ AS
     END
     ELSE
     BEGIN
-        -- Begin Transaction
+        -- A) Begin Transaction
         BEGIN TRANSACTION   -- Means that any insert/update/delete is "temporary" until committed
         -- Step 1) Withdraw the student from the first course
-        --PRINT('Update Registration to set WithdrawYN to Y')
         UPDATE Registration
            SET WithdrawYN = 'Y'
         WHERE  StudentID = @StudentID     -- for the correct student
@@ -49,16 +56,14 @@ AS
           AND  Semester = @Semester       -- and the correct semester
           AND  (WithdrawYN = 'N' OR WithdrawYN IS NULL) -- and they are not already withdrawn
         --         Check for error/rowcount
-        IF @@ERROR <> 0 OR @@ROWCOUNT = 0
+        IF @@ERROR <> 0 OR @@ROWCOUNT = 0 -- If we were unable to remove the student...
         BEGIN
-            --PRINT('RAISERROR + ROLLBACK')
             RAISERROR('Unable to withdraw student', 16, 1)
-            ROLLBACK TRANSACTION -- reverses the "temporary" changes to the database and closes the transaction
+            ROLLBACK TRANSACTION -- B) reverses the "temporary" changes to the database and closes the transaction
         END
         ELSE
         BEGIN
             -- Step 2) Enroll the student in the second course
-            --PRINT('Insert Registration to add student')
             INSERT INTO Registration(StudentID, CourseId, Semester)
             VALUES (@StudentID, @EnterCourseID, @Semester)
             --         Check for error/rowcount
@@ -66,19 +71,36 @@ AS
             -- we have to check them immediately after our insert/update/delete
             IF @@ERROR <> 0 OR @@ROWCOUNT = 0 -- Do our check for errors after each I/U/D
             BEGIN
-                --PRINT('RAISERROR + ROLLBACK')
                 RAISERROR('Unable to transfer student to new course', 16, 1)
-                ROLLBACK TRANSACTION
+                ROLLBACK TRANSACTION -- B) reverse the "temporary" changes
             END
             ELSE
             BEGIN
-                --PRINT('COMMIT TRANSACTION')
-                COMMIT TRANSACTION -- Make the changes permanent on the database
+                COMMIT TRANSACTION -- C) Make the changes permanent on the database
             END
         END
     END
 RETURN
 GO
+-- Let's test the stored procedure
+-- Start with using "good" data
+SELECT * FROM REGISTRATION -- just to see what's in our database
+-- I choose the student 200688700  -- SELECT * FROM Student WHERE StudentID = 200688700
+-- They are currently in DMIT152 in semester 2005S
+-- SELECT * FROM Course WHERE CourseId = 'DMIT152'  -- Advanced Programming (.net 1)
+-- I want to move that student to the DMIT163 course
+-- SELECT * FROM Course WHERE CourseId = 'DMIT163'  -- Game Programming 1
+-- To accomplish this transfer, I will call my stored procedure
+EXEC TransferCourse 200688700, '2005S', 'DMIT152', 'DMIT163'
+-- Check my database for the changes
+SELECT * FROM Registration WHERE Semester = '2005S' AND StudentID = 200688700
+-- Next, let's see what happens if there is any "problem" data for our transfer
+-- The first example would be attempting to remove a student from a course they
+-- were not part of (e.g.: 'DMIT172')
+EXEC TransferCourse 200688700, '2005S', 'DMIT172', 'DMIT221'
+-- Here's another example of attempting to transfer to another course
+EXEC TransferCourse 200688700, '2005S', 'DMIT163', 'SBCC777'
+SELECT * FROM Registration WHERE Semester = '2005S' AND StudentID = 200688700
 
 
 -- 2. Create a stored procedure called DissolveClub that will accept a club id as its parameter. Ensure that the club exists before attempting to dissolve the club. You are to dissolve the club by first removing all the members of the club and then removing the club itself.
@@ -96,7 +118,7 @@ CREATE PROCEDURE AdjustMarks
     @CourseID   char(7)
 AS
     -- Body of procedure here
-    -- Step 0) Validation
+    -- Step 0) Validation - You can combine all your NULL checks here
     IF @CourseID IS NULL
     BEGIN
         RAISERROR('CourseID cannot be null', 16, 1)
@@ -105,23 +127,20 @@ AS
     BEGIN
         BEGIN TRANSACTION -- Don't forget this....
         -- Step 1) Deal with those who "could" get 100%+ by just giving them 100%
-        -- You can use PRINT() statements temporarily as a way to see what stage/step is run when you test the SPROC
-	-- BUT you must REMEMBER TO REMOVE THE PRINT STATEMENTS in your final version of the stored procedure
-        PRINT('Step 1 - Update Registration...') -- Will output in the messages window
+
         UPDATE Registration
            SET Mark = 100            -- the max mark possible
         WHERE  CourseId = @CourseID
           AND  Mark * 1.1 > 100      -- whereever adding 10% would give more than 100% of a final mark
+
         IF @@ERROR > 0 -- Errors only - it's ok to have zero rows affected
         BEGIN
-            PRINT('RAISERROR + ROLLBACK')
             RAISERROR('Problem updating marks', 16, 1)
             ROLLBACK TRANSACTION
         END
         ELSE
         BEGIN
             -- Step 2) Raise all the other marks
-            PRINT('Step 2 - Update Registration...')
             UPDATE Registration
                SET Mark = Mark * 1.1
             WHERE  CourseId = @CourseID
@@ -129,7 +148,6 @@ AS
 
             IF @@ERROR > 0 -- Errors only
             BEGIN
-                PRINT('RAISERROR + ROLLBACK')
                 RAISERROR('Problem updating marks', 16, 1)
                 ROLLBACK TRANSACTION
             END
@@ -142,6 +160,23 @@ AS
 
 RETURN
 GO
+
+/* Test the AdjustMarks stored procedure
+SELECT  CourseId, StudentId, Semester, Mark 
+FROM    Registration
+WHERE   CourseId = 'DMIT152'
+
+-- Call my sproc with the 'DMIT152' course and then look at the results
+EXEC AdjustMarks 'DMIT152'
+
+SELECT  CourseId, StudentId, Semester, Mark 
+FROM    Registration
+WHERE   CourseId = 'DMIT152'
+
+-- Test with "bad data"
+EXEC AdjustMarks NULL
+*/
+
 
 -- 4. Create a stored procedure called RegisterStudent that accepts StudentID, CourseID and Semester as parameters. If the number of students in that course and semester are not greater than the Max Students for that course, add a record to the Registration table and add the cost of the course to the students balance. If the registration would cause the course in that semester to have greater than MaxStudents for that course raise an error.
 GO
@@ -165,8 +200,13 @@ AS
         DECLARE @CurrentCount   smallint
         DECLARE @CourseCost     money
         -- Assign a value to each of the local variables
-        SELECT @MaxStudents = MaxStudents FROM Course WHERE CourseId = @CourseID
+        -- I can use the SET statement to grab the # of students allowed in the course
+        SET @MaxStudents = (SELECT MaxStudents FROM Course WHERE CourseId = @CourseID)
+        --  \ variable / = \ produces a single value (one row, one column)           /
+
+        -- I can use a SELECT statement to grab the current # of students in the course
         SELECT @CurrentCount = COUNT (StudentID) FROM Registration WHERE CourseId = @CourseID AND Semester = @Semester
+
         SELECT @CourseCost = CourseCost FROM Course WHERE CourseId = @CourseID
 
         IF @MaxStudents >= @currentcount 
@@ -227,9 +267,9 @@ AS
     ELSE
     BEGIN
         IF NOT EXISTS(SELECT StudentID FROM Student
-                      WHERE  StudentID = @StudentID
-                        AND  FirstName = @First
-                        AND  LastName = @Last
+                      WHERE  StudentID = @StudentID -- This is the PK - there should only be ONE row
+                        AND  FirstName = @First     -- all these others are to make sure we
+                        AND  LastName = @Last       -- truely have the correct person
                         AND  Gender = @Gender
                         AND  Birthdate = @Birthdate)
         BEGIN

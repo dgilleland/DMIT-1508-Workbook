@@ -10,7 +10,73 @@ GO
    ------------------------------- */
 -- 3.b. TODO: Write code to test this trigger by creating a stored procedure called RegisterStudent that puts a student in a course and then increases the balance owing by the cost of the course.
 SELECT * FROM Student WHERE BalanceOwing > 0
+-- sp_help Registration
 GO
+CREATE OR ALTER PROCEDURE RegisterStudent
+    @StudentID      int,
+    @CourseId       char(7),
+    @Semester       char(5)
+AS
+    IF @StudentID IS NULL OR @CourseId IS NULL OR @Semester IS NULL
+    BEGIN
+        RAISERROR('StudentId, CourseId and Semester are required', 16, 1)
+    END
+    ELSE
+    BEGIN
+        BEGIN TRANSACTION
+
+        INSERT INTO Registration(StudentID, CourseId, Semester)
+        VALUES (@StudentID, @CourseId, @Semester)
+
+        IF @@ERROR <> 0
+        BEGIN
+            RAISERROR('Unable to register student in course', 16, 1)
+            ROLLBACK TRANSACTION
+        END
+        ELSE
+        BEGIN
+            DECLARE @Cost   money
+            SET @Cost = (SELECT CourseCost FROM Course WHERE CourseId = @CourseId)
+
+            UPDATE  Student
+            SET     BalanceOwing = BalanceOwing + @Cost
+            WHERE   StudentID = @StudentID
+
+            IF @@ERROR <> 0
+            BEGIN
+                RAISERROR('Unable to charge student for course registration', 16, 1)
+                ROLLBACK TRANSACTION
+            END
+            ELSE
+            BEGIN
+                COMMIT TRANSACTION
+            END
+        END
+    END
+GO
+
+-- Now, let's have a student register in a lot of courses and see if the trigger's rollback gets fired.
+-- First I need to find a student that I can add to courses...
+SELECT * FROM STUDENT WHERE StudentId NOT IN (SELECT StudentId FROM Registration)
+-- From this, I will select 200494476 (Joe Cool), and add them to some courses
+SELECT * FROM Course
+-- DMIT101, DMIT103, DMIT104, DMIT115, DMIT152, DMIT163, DMIT168, DMIT170, DMIT172, DMIT175, DMIT215
+EXEC RegisterStudent 200494476, 'DMIT101', '2024S'
+EXEC RegisterStudent 200494476, 'DMIT103', '2024S'
+EXEC RegisterStudent 200494476, 'DMIT104', '2024S'
+EXEC RegisterStudent 200494476, 'DMIT115', '2024S'
+EXEC RegisterStudent 200494476, 'DMIT152', '2024S'
+EXEC RegisterStudent 200494476, 'DMIT163', '2024S'
+EXEC RegisterStudent 200494476, 'DMIT168', '2024S'
+-- check balance...
+SELECT [StudentID],[FirstName],[LastName],[BalanceOwing]
+FROM Student WHERE StudentID = 200494476
+EXEC RegisterStudent 200494476, 'DMIT170', '2024S'
+EXEC RegisterStudent 200494476, 'DMIT172', '2024S'
+EXEC RegisterStudent 200494476, 'DMIT175', '2024S'
+-- THIS ONE should trigger the rejection
+EXEC RegisterStudent 200494476, 'DMIT215', '2024S'
+
 
 -- 5. The school has placed a temporary hold on the creation of any more clubs. (Existing clubs can be renamed or removed, but no additional clubs can be created.) Put a trigger on the Clubs table to prevent any new clubs from being created.
 DROP TRIGGER IF EXISTS Club_Insert_Lockdown
@@ -94,14 +160,34 @@ AS
     END
 RETURN
 GO
+-- We can explore what data is available in our database to build up some test data
+SELECT * FROM Course
+    -- Let's use 'DMIT259'
+SELECT * FROM Student
+    -- Let's use 200122100, 200011730, and 199912010
+SELECT * FROM Staff
+    -- Let's use 1 - Donna Bookem
+UPDATE Student SET BalanceOwing = 0; -- to clean up any potential problems of registering our students....
 
+
+INSERT INTO Registration(CourseId, StudentID, Semester, StaffID)
+VALUES  ('DMIT259',200122100,'2024S',1)
+INSERT INTO Registration(CourseId, StudentID, Semester, StaffID)
+VALUES  ('DMIT259',200011730,'2024S',1)
+-- The next one should be one too many
+INSERT INTO Registration(CourseId, StudentID, Semester, StaffID)
+VALUES  ('DMIT259',199912010,'2024S',1)
+SELECT * FROM REGISTRATION WHERE CourseId = 'DMIT259' AND Semester = '2024S'
+-- Here we can cleanup
+DELETE FROM REGISTRATION WHERE CourseId = 'DMIT259' AND Semester = '2024S'
+GO
 -- 11. Change the Registration_ClassSizeLimit trigger so students will be added to a wait list if the course is already full; make sure the student is not added to Registration, and include a message that the student has been added to a waitlist. You should design a WaitList table to accommodate the changes needed for adding a student to the course once space is freed up for the course. Students should be added on a first-come-first-served basis (i.e. - include a timestamp in your WaitList table)
 -- Step 1) Make the WaitList table
 DROP TABLE IF EXISTS WaitList
 GO
 CREATE TABLE WaitList
 (
-    LogID           int  IDENTITY (1,1) NOT NULL CONSTRAINT PK_BalanceOwingLog PRIMARY KEY,
+    LogID           int  IDENTITY (1,1) NOT NULL CONSTRAINT PK_WaitListLogID PRIMARY KEY,
     StudentID       int                 NOT NULL,
     CourseID        char(7)             NOT NULL,
     Semester        char(5)             NOT NULL,
@@ -127,9 +213,19 @@ AS
         INSERT INTO WaitList(StudentID, CourseID, Semester, AddedOn)
         SELECT StudentID, CourseID, Semester, GETDATE()
         FROM   inserted
-        ROLLBACK TRANSACTION
+        
+        DELETE R FROM Registration AS R
+        INNER JOIN inserted AS I 
+            ON  I.StudentID = R.StudentID 
+            AND I.CourseId = R.CourseId 
+            AND I.Semester = R.Semester
     END
 RETURN
 GO
+-- Let's try adding that last student again
+INSERT INTO Registration(CourseId, StudentID, Semester, StaffID)
+VALUES  ('DMIT259',199912010,'2024S',1)
+
+SELECT * FROM WaitList
 
 -- 12. (Advanced) Create a trigger called Registration_AutomaticEnrollment that will add students from the wait list of a course whenever another student withdraws from that course. Pull your students from the WaitList table on a first-come-first-served basis.

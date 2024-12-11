@@ -139,6 +139,27 @@ Views allow access to the underlying tables in our database for more than just q
 
 ----
 
+## Roommates Database
+
+The [script for the Roommates database](./Roommates.sql) consists of two tables with the following data (also as a [screenshot](./Images/RoommatesData.png)).
+
+| PersonID | FirstName | LastName | RentalId | WantingRoommate |
+|----------|-----------|----------|----------|-----------------|
+| 400 | Sherlock | Holmes | 1 | NULL |
+| 450 | John | Watson | 1 | NULL |
+| 500 | Barney | Rubble | 2 | NULL |
+| 550 | Fred | Flintstone | 2 | NULL |
+| 600 | Wilma | Slaghoople | 3 | NULL |
+| 650 | Betty | McBricker | 3 | NULL |
+
+| RentalId | Unit | StreetAddress | City | MonthlyRent |
+|----------|------|---------------|------|-------------|
+| 1 | NULL | 221-B Baker Street | London | 500.00 |
+| 2 | 101 | 105 Rockdale Ravine | Bedrock | 400.00 |
+| 3 | 403 | 221 Rockdale Ravine | Bedrock | 450.00 |
+
+----
+
 ## ERD for A0X-School
 
 ![ERD](./IQSchool-ERD.png)

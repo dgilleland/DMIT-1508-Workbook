@@ -55,6 +55,7 @@ AS
 GO
 SELECT  FullName, PositionName, PositionID
 FROM    StaffConfidential
+WHERE   PositionName LIKE '%Chair%'
 GO
 
 --3.  Create a view called StaffExperience that returns the name of the staff members that have taught courses and the names of the courses they have taught. Sort the results by staff last name then first name, then course name.
@@ -74,6 +75,9 @@ AS
         -- "The OFFSET is the number of rows to skip before including them in the result."
         OFFSET 0 ROWS
 GO
+-- Test the results of the StaffExperienceRaw
+-- SELECT * FROM StaffExperienceRaw
+
 
 DROP VIEW IF EXISTS StaffExperience
 GO

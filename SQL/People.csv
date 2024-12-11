@@ -1,0 +1,7 @@
+PersonID,FirstName,LastName,RentalId,WantingRoommate
+400,Sherlock,Holmes,1,NULL
+450,John,Watson,1,NULL
+500,Barney,Rubble,2,NULL
+550,Fred,Flintstone,2,NULL
+600,Wilma,Slaghoople,3,NULL
+650,Betty,McBricker,3,NULL

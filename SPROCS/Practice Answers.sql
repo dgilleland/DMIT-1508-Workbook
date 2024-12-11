@@ -10,13 +10,49 @@ GO
    ------------------------------- */
 
 --6. Create a stored procedure called "Provinces" to list all the students provinces.
+-- TODO: Student Answer Here
+CREATE PROCEDURE Provinces
+AS
+    SELECT  DISTINCT Province
+    FROM    Student
+RETURN
+GO
+-- EXEC Provinces
 
 --7. OK, question 6 was ridiculously simple and serves no purpose. Lets remove that stored procedure from the database.
+-- TODO: Student Answer Here
+DROP PROCEDURE IF EXISTS Provinces
+GO
 
 --8. Create a stored procedure called StudentPaymentTypes that lists all the student names and their payment types. Ensure all the student names are listed, including those who have not yet made a payment.
+-- TODO: Student Answer Here
+DROP PROCEDURE IF EXISTS StudentPaymentTypes
+GO
+CREATE PROCEDURE StudentPaymentTypes
+AS
+    SELECT  FirstName + ' ' + LastName AS 'StudentName',
+            PaymentTypeDescription
+    FROM    Student AS S
+        LEFT OUTER JOIN Payment AS P
+            ON S.StudentID = P.StudentID
+        LEFT OUTER JOIN PaymentType AS PT
+            ON P.PaymentTypeID = PT.PaymentTypeID
+RETURN
+GO
+-- EXEC StudentPaymentTypes
 
 --9. Modify the procedure from question 8 to return only the student names that have made payments.
-
+-- TODO: Student Answer Here
+ALTER PROCEDURE StudentPaymentTypes
+AS
+    SELECT  FirstName + ' ' + LastName AS 'StudentName',
+            PaymentTypeDescription
+    FROM    Student AS S
+        INNER JOIN Payment AS P
+            ON S.StudentID = P.StudentID
+        INNER JOIN PaymentType AS PT
+            ON P.PaymentTypeID = PT.PaymentTypeID
+RETURN
 GO
 
 /* ===============================
@@ -28,13 +64,15 @@ GO
 DROP PROCEDURE IF EXISTS RemoveFromClub
 GO
 CREATE PROCEDURE RemoveFromClub
-    @StudentId      int
+    @StudentId      int,
+    @ClubId         varchar(10)
 AS
-    IF @StudentId IS NULL
-        RAISERROR('StudentId is required', 16, 1)
+    IF @StudentId IS NULL OR @ClubId IS NULL
+        RAISERROR('StudentId and ClubId are required', 16, 1)
     ELSE
-        DELETE FROM Student
+        DELETE FROM Activity
         WHERE  StudentID = @StudentId
+          AND  ClubId = @ClubId
 RETURN
 GO
 
@@ -67,6 +105,7 @@ AS
         FROM    Registration AS R
             INNER JOIN Course AS C ON R.CourseId = C.CourseId
         WHERE   Mark IS NOT NULL
+          AND   StudentId = @StudentId
 RETURN
 GO
 
@@ -213,7 +252,7 @@ CREATE PROCEDURE FindCourse
 AS
     SELECT  CourseId, CourseName
     FROM    Course
-    WHERE   CourseName LIKE '%programming%'
+    WHERE   CourseName LIKE '%' + @PartialName + '%'
 RETURN
 GO
 
@@ -432,7 +471,7 @@ AS
     SELECT S.StudentID, FirstName, LastName, PaymentTypeDescription, Amount, PaymentDate
     FROM   Student AS S
         INNER JOIN Payment AS P ON S.StudentID = P.StudentID
-        INNER JOIN PayemtnType AS PT ON P.PaymentTypeID = PT.PaymentTypeID
+        INNER JOIN PaymentType AS PT ON P.PaymentTypeID = PT.PaymentTypeID
     IF @@ERROR <> 0 OR @@ROWCOUNT = 0
     BEGIN
         RAISERROR('Unable to create archive records', 16, 1)

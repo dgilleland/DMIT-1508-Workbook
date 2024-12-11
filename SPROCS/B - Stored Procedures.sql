@@ -63,6 +63,7 @@ AS
     IF @ClubId IS NULL OR @ClubName IS NULL
     BEGIN
         RAISERROR('Club ID and Name are required', 16, 1)
+     --           \__ Message for the error ____/  \_____ Always use: , 16, 1
     END
     ELSE
     BEGIN
@@ -77,7 +78,7 @@ GO
 DROP PROCEDURE IF EXISTS FindStudentClubs
 GO
 CREATE PROCEDURE FindStudentClubs
-    @PartialID      varchar(10)
+    @PartialID      varchar(10) -- because the ClubId column is a varchar(10)
 AS
     -- Body of procedure here
     SELECT  ClubID, ClubName
@@ -95,7 +96,9 @@ ALTER PROCEDURE FindStudentClubs
     @PartialID      varchar(10)
 AS
     -- Body of procedure here
+    -- The basic principle of validation is to determine if there are any problems with the data
     IF @PartialID IS NULL OR LEN(@PartialID) < 2
+    -- \__ REQUIRED ____/    \_ at least 2 chars _/    
     BEGIN   -- {
         RAISERROR('The partial ID must be two or more characters', 16, 1)
         -- The 16 is the error number and the 1 is the severity
@@ -171,6 +174,7 @@ CREATE PROCEDURE CorrectStudentName
     @FirstName      varchar(25),
     @LastName       varchar(35)
 AS
+    -- Your NULL check should be the first thing you validate for
     IF @StudentId IS NULL OR @FirstName IS NULL OR @LastName IS NULL
         RAISERROR('All parameters are required.', 16, 1)
     ELSE IF NOT EXISTS (SELECT StudentID FROM Student WHERE StudentID = @StudentId)

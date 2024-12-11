@@ -39,6 +39,66 @@ FROM    Payment
 WHERE   Amount < 500
    OR   PaymentTypeID = 5
 
+--15. Create separate SELECT statements for each table in the school database. Select all the rows from those tables.
+-- TODO: Student Answer Here
+SELECT  [PositionID],
+        [PositionDescription]
+FROM    [Position]
+
+SELECT  [StaffID],
+        [FirstName],
+        [LastName],
+        [DateHired],
+        [DateReleased],
+        [PositionID],
+        [LoginID]
+FROM    Staff
+
+SELECT  [CourseId],
+        [CourseName],
+        [CourseHours],
+        [MaxStudents],
+        [CourseCost]
+FROM    Course
+
+SELECT  [StudentID],
+        [FirstName],
+        [LastName],
+        [Gender],
+        [StreetAddress],
+        [City],
+        [Province],
+        [PostalCode],
+        [Birthdate],
+        [BalanceOwing]
+FROM    Student
+
+SELECT  [StudentID],
+        [CourseId],
+        [Semester],
+        [Mark],
+        [WithdrawYN],
+        [StaffID]
+FROM    Registration
+
+SELECT  [ClubId],
+        [ClubName]
+FROM    Club
+
+SELECT  [StudentID],
+        [ClubId]
+FROM    Activity
+
+SELECT  [PaymentTypeID],
+        [PaymentTypeDescription]
+FROM    PaymentType
+
+SELECT  [PaymentID],
+        [PaymentDate],
+        [Amount],
+        [PaymentTypeID],
+        [StudentID]
+FROM    Payment
 
 /* ===============================
    |  B - Simple Select          |
@@ -498,6 +558,28 @@ HAVING AVG(Mark) >= ALL --  A number can't be 'GREATER THAN or EQUAL TO' a NULL 
    ------------------------------- */
 --4.  Create a view called StudentGrades that retrieves the student ID's, full names, courseId's, course names, and marks for each student.
 -- TODO: Student Answer here
+DROP VIEW IF EXISTS StudentGrades
+GO
+CREATE VIEW StudentGrades
+AS
+    SELECT  S.StudentID,
+            FirstName + ' ' + LastName AS 'StudentFullName',
+            R.CourseId,
+            C.CourseName,
+            R.Mark
+    FROM    Student AS S
+        LEFT OUTER JOIN Registration AS R
+            ON S.StudentID = R.StudentID
+        LEFT OUTER JOIN Course AS C
+            ON R.CourseId = C.CourseId
+GO
+-- A quick sample of using StudentGrades view
+SELECT  [StudentID],
+        [StudentFullName],
+        [CourseId],
+        [CourseName],
+        [Mark]
+FROM   StudentGrades
 
 /* *******************
  * Using the Views
@@ -507,14 +589,39 @@ HAVING AVG(Mark) >= ALL --  A number can't be 'GREATER THAN or EQUAL TO' a NULL 
 
 --5.  Use the student grades view to create a grade report for studentID 199899200 that shows the students ID, full name, course names and marks.
 -- TODO: Student Answer here
+SELECT  [StudentID],
+        [StudentFullName],
+        [CourseName],
+        [Mark]
+FROM    StudentGrades
+WHERE   StudentID = 199899200
 
 --6.  Select the same information using the student grades view for studentID 199912010.
 -- TODO: Student Answer here
+SELECT  [StudentID],
+        [StudentFullName],
+        [CourseName],
+        [Mark]
+FROM    StudentGrades
+WHERE   StudentID = 199912010
 
 --7.  Retrieve the course id for the student grades view from the database.
 -- TODO: Student Answer here
-
-
+SELECT  DISTINCT [CourseId]
+FROM    StudentGrades
+-- Why is there a NULL result for a CourseId?
+-- Because there are students in the database who haven't chosen their courses yet
+-- If you look inside the view, you see it uses a LEFT OUTER JOIN
+SELECT  [StudentID],
+        [StudentFullName],
+        [CourseName],
+        [Mark]
+FROM    StudentGrades
+WHERE   CourseName IS NULL
+-- or, for exploration
+SELECT  FirstName, LastName
+FROM    Student
+WHERE   StudentID NOT IN (SELECT StudentID FROM Registration)
 
 /* ===============================
    |  J - Unions                 |

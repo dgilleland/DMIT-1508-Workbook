@@ -11,6 +11,10 @@ GO
 -- they tend to appear in the WHERE clause or the HAVING clause.
 
 --1. Select the Payment dates and payment amount for all payments that were Cash
+/*
+SELECT * FROM Payment
+SELECT * FROM PaymentType
+*/
 SELECT PaymentDate, Amount
 FROM   Payment
 WHERE  PaymentTypeID = -- Using the = means that the RH side must be a single value
@@ -29,13 +33,22 @@ WHERE  PaymentTypeDescription = 'cash'
 
 --2. Select The Student ID's of all the students that are in the 'Association of Computing Machinery' club
 -- TODO: Student Answer Here
-/*
+/* A) Look at the raw data to better understand what is required
 SELECT * FROM Club
 SELECT * FROM Activity
 */
--- Thinking of the subquery first, I can find out
--- what club ID matches for the given club name
-
+-- B) The data I have to retrieve/display is the `StudentId`; this is in the ACtivity
+-- C) The data used to filter the results is based on the `ClubName`, which is in the
+--    Club table
+--    Thinking of the subquery first, I can find out
+--    what club ID matches for the given club name
+SELECT ClubId FROM Club
+WHERE  ClubName = 'Association of Computing Machinery'
+-- D) Use the information from the above query in filtering the results from the Activity
+SELECT  StudentId
+FROM    Activity
+WHERE   ClubId = (SELECT ClubId FROM Club
+                  WHERE  ClubName = 'Association of Computing Machinery')
 
 --3. Select All the staff full names for staff that have taught a course.
 SELECT FirstName + ' ' + LastName AS 'Staff'

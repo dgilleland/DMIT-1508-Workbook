@@ -1,0 +1,4 @@
+RentalId,Unit,StreetAddress,City,MonthlyRent
+1,NULL,221-B Baker Street,London,500.00
+2,101,105 Rockdale Ravine,Bedrock,400.00
+3,403,221 Rockdale Ravine,Bedrock,450.00
