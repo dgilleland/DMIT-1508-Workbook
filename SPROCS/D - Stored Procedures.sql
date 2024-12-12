@@ -23,8 +23,12 @@
 --     such as determining if a certain course exists.
 --   - IMPORTANT:
 --     - DO NOT use EXISTS() within a query or DML statement's WHERE or HAVING
---       clauses or as part of a subquery.
---     - DO use this function as part of an IF statement, if applicable.
+--       clauses or as part of a subquery. Why? Because the database server
+--       cannot easily optimize the use of EXISTS() for performance considerations
+--       in this context.
+--     - DO use this function as part of an IF statement, if applicable. Within an
+--       IF statement, the database server can properly optimize the use of the
+--       EXISTS() function.
 
 USE [A03-School]
 GO
