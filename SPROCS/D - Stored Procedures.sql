@@ -21,6 +21,10 @@
 --     Returns true if there are 1 or more rows, otherwise it returns false.
 --     Helpful for determining if certain data exists in the database,
 --     such as determining if a certain course exists.
+--   - IMPORTANT:
+--     - DO NOT use EXISTS() within a query or DML statement's WHERE or HAVING
+--       clauses or as part of a subquery.
+--     - DO use this function as part of an IF statement, if applicable.
 
 USE [A03-School]
 GO
